@@ -1,0 +1,122 @@
+[
+  {
+    "id": "1",
+    "name": "Treadmill",
+    "description": "Cardio machine for walking, jogging, or running. Great for improving cardiovascular fitness and burning calories.",
+    "muscleGroup": "Cardio",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=vHSaAGbmHxA",
+    "tips": ["Start at low speed", "Maintain upright posture", "Hold rails only if necessary"],
+    "labels": ["treadmill", "running machine"]
+  },
+  {
+    "id": "2",
+    "name": "Leg Press",
+    "description": "Machine that targets quadriceps, hamstrings, and glutes. A safe alternative to squats for building lower body strength.",
+    "muscleGroup": "Legs",
+    "difficultyLevel": "Intermediate",
+    "videoUrl": "https://www.youtube.com/watch?v=IZxyjW7MPJQ",
+    "tips": ["Don't lock your knees", "Keep your back flat", "Control the descent"],
+    "labels": ["leg press", "leg machine"]
+  },
+  {
+    "id": "3",
+    "name": "Bench Press",
+    "description": "Classic upper body compound exercise using a barbell or dumbbells. Targets chest, shoulders, and triceps.",
+    "muscleGroup": "Chest",
+    "difficultyLevel": "Intermediate",
+    "videoUrl": "https://www.youtube.com/watch?v=SCVCLChPQEs",
+    "tips": ["Always use a spotter", "Keep feet flat on floor", "Control the bar path"],
+    "labels": ["bench press", "chest press", "barbell bench"]
+  },
+  {
+    "id": "4",
+    "name": "Pull-up Bar",
+    "description": "Bodyweight exercise equipment for targeting back, biceps, and core. Highly effective for upper body strength.",
+    "muscleGroup": "Back",
+    "difficultyLevel": "Intermediate",
+    "videoUrl": "https://www.youtube.com/watch?v=eGo4IYlbE5g",
+    "tips": ["Full dead hang at bottom", "Pull elbows to ribs", "Cross feet for stability"],
+    "labels": ["pull-up bar", "chin-up bar", "pull up"]
+  },
+  {
+    "id": "5",
+    "name": "Rowing Machine",
+    "description": "Full-body cardio machine that mimics rowing. Works back, legs, arms, and core simultaneously.",
+    "muscleGroup": "Full Body",
+    "difficultyLevel": "Intermediate",
+    "videoUrl": "https://www.youtube.com/watch?v=H0r_Z-JEFlg",
+    "tips": ["Drive with legs first", "Lean back slightly at finish", "Keep strokes smooth"],
+    "labels": ["rowing machine", "rower", "ergometer"]
+  },
+  {
+    "id": "6",
+    "name": "Lat Pulldown",
+    "description": "Cable machine exercise targeting the latissimus dorsi muscles. Great for building a wider back.",
+    "muscleGroup": "Back",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=CAwf7n6Luuc",
+    "tips": ["Pull to upper chest", "Lean back slightly", "Squeeze shoulder blades"],
+    "labels": ["lat pulldown", "cable pulldown", "lat machine"]
+  },
+  {
+    "id": "7",
+    "name": "Dumbbell Rack",
+    "description": "Collection of dumbbells for free-weight exercises. Versatile for countless upper and lower body movements.",
+    "muscleGroup": "Full Body",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=VAzDPl0eGiM",
+    "tips": ["Choose appropriate weight", "Return weights after use", "Use collars on barbells"],
+    "labels": ["dumbbell", "dumbbells", "free weights", "dumbbell rack"]
+  },
+  {
+    "id": "8",
+    "name": "Stationary Bike",
+    "description": "Low-impact cardio machine ideal for joint-friendly cycling workouts. Great for endurance training.",
+    "muscleGroup": "Cardio",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=_nt9C0yZfLo",
+    "tips": ["Adjust seat height", "Maintain 80-100 RPM", "Keep core engaged"],
+    "labels": ["stationary bike", "exercise bike", "spin bike", "cycling machine"]
+  },
+  {
+    "id": "9",
+    "name": "Cable Machine",
+    "description": "Versatile pulley-based machine allowing exercises in multiple planes. Excellent for functional training.",
+    "muscleGroup": "Full Body",
+    "difficultyLevel": "Intermediate",
+    "videoUrl": "https://www.youtube.com/watch?v=8rGMDMXFkus",
+    "tips": ["Adjust pulley height", "Stand in athletic stance", "Control through full range"],
+    "labels": ["cable machine", "cable tower", "pulley machine"]
+  },
+  {
+    "id": "10",
+    "name": "Smith Machine",
+    "description": "Guided barbell machine for controlled strength training. Good for beginners learning squat and press movements.",
+    "muscleGroup": "Full Body",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=pI7QVnYSGp8",
+    "tips": ["Set safety stops", "Warm up before loading", "Don't rely on it exclusively"],
+    "labels": ["smith machine", "guided barbell"]
+  },
+  {
+    "id": "11",
+    "name": "Elliptical Trainer",
+    "description": "Low-impact cardio machine combining stair-climbing and cross-country skiing motions.",
+    "muscleGroup": "Cardio",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=Mq49UGdSMWY",
+    "tips": ["Keep weight in heels", "Use arm handles", "Maintain upright posture"],
+    "labels": ["elliptical", "cross trainer", "elliptical trainer"]
+  },
+  {
+    "id": "12",
+    "name": "Barbell Squat Rack",
+    "description": "Safety rack for performing barbell squats. Essential for heavy lower body strength training.",
+    "muscleGroup": "Legs",
+    "difficultyLevel": "Advanced",
+    "videoUrl": "https://www.youtube.com/watch?v=ultWZbUMPL8",
+    "tips": ["Set bar at shoulder height", "Always use safety bars", "Warm up thoroughly"],
+    "labels": ["squat rack", "power rack", "cage", "barbell rack"]
+  }
+]

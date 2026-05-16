@@ -1,0 +1,66 @@
+[
+  {
+    "id": "r1",
+    "title": "Effects of Resistance Training on Muscle Hypertrophy",
+    "authors": ["Schoenfeld, B.J.", "Grgic, J."],
+    "year": 2019,
+    "abstract": "Resistance training induces muscle hypertrophy through mechanical tension, metabolic stress, and muscle damage. Studies show that training with moderate loads (6-12 reps) at 70-85% of 1RM maximizes hypertrophic response. Progressive overload is the key principle — gradually increasing load, volume, or frequency over time. Rest periods of 60-90 seconds between sets optimize metabolic stress while maintaining sufficient volume.",
+    "keywords": ["strength", "muscle", "hypertrophy", "resistance training", "weightlifting"]
+  },
+  {
+    "id": "r2",
+    "title": "Cardiovascular Benefits of Aerobic Exercise",
+    "authors": ["Garber, C.E.", "Blissmer, B.", "Deschenes, M.R."],
+    "year": 2011,
+    "abstract": "Regular aerobic exercise at moderate intensity (50-70% HRmax) for 150 minutes per week significantly reduces cardiovascular disease risk. High-intensity interval training (HIIT) can achieve similar benefits in less time. Treadmill running, cycling, and rowing are effective modalities. Maintaining target heart rate zones during cardio maximizes fat oxidation and VO2max improvements.",
+    "keywords": ["cardio", "cardiovascular", "endurance", "treadmill", "cycling", "rowing", "HIIT"]
+  },
+  {
+    "id": "r3",
+    "title": "Stretching and Injury Prevention in Athletes",
+    "authors": ["Behm, D.G.", "Chaouachi, A."],
+    "year": 2011,
+    "abstract": "Dynamic stretching before exercise improves performance and reduces acute injury risk by increasing muscle temperature and range of motion. Static stretching held for >60 seconds before activity can temporarily reduce force production. Post-workout static stretching (20-30 seconds per muscle group) improves flexibility over time. Proprioceptive neuromuscular facilitation (PNF) stretching shows greatest flexibility gains.",
+    "keywords": ["stretching", "injury prevention", "flexibility", "warmup", "cooldown"]
+  },
+  {
+    "id": "r4",
+    "title": "Protein Intake Recommendations for Strength Athletes",
+    "authors": ["Morton, R.W.", "Murphy, K.T.", "McKellar, S.R."],
+    "year": 2018,
+    "abstract": "Protein intake of 1.6-2.2g per kg bodyweight per day maximizes muscle protein synthesis in strength athletes. The timing of protein consumption within 2 hours post-workout is beneficial but total daily intake matters most. Complete protein sources (whey, eggs, meat) containing all essential amino acids are most effective. Plant-based athletes should combine sources to ensure leucine adequacy.",
+    "keywords": ["protein", "nutrition", "muscle recovery", "strength", "diet"]
+  },
+  {
+    "id": "r5",
+    "title": "Sleep and Athletic Recovery",
+    "authors": ["Watson, A.M."],
+    "year": 2017,
+    "abstract": "Athletes require 8-10 hours of sleep for optimal recovery and performance. Sleep deprivation reduces reaction time, increases injury risk, and impairs muscle glycogen replenishment. Growth hormone secretion during deep sleep is critical for muscle repair. Consistent sleep schedules and avoiding screens before bed improve sleep quality significantly.",
+    "keywords": ["sleep", "recovery", "performance", "rest", "athletic recovery"]
+  },
+  {
+    "id": "r6",
+    "title": "Progressive Overload Principles in Strength Training",
+    "authors": ["Kraemer, W.J.", "Ratamess, N.A."],
+    "year": 2004,
+    "abstract": "Progressive overload — systematically increasing training demands — is fundamental to strength gains. This can be achieved by increasing load, volume (sets x reps), frequency, or decreasing rest periods. Periodization models (linear, undulating, block) help manage fatigue and prevent plateaus. Beginners benefit most from simple linear progression while advanced athletes need more complex programming.",
+    "keywords": ["progressive overload", "strength training", "periodization", "beginner", "advanced"]
+  },
+  {
+    "id": "r7",
+    "title": "HIIT vs Steady-State Cardio for Fat Loss",
+    "authors": ["Boutcher, S.H."],
+    "year": 2011,
+    "abstract": "High-Intensity Interval Training (HIIT) produces greater fat loss per unit of time compared to steady-state cardio due to elevated post-exercise oxygen consumption (EPOC). Protocols such as 20 seconds work / 10 seconds rest (Tabata) or 4-minute intervals at 90% HRmax are highly effective. However, steady-state cardio at 60-70% HRmax is preferable for beginners or those with cardiovascular conditions.",
+    "keywords": ["HIIT", "fat loss", "cardio", "weight loss", "interval training"]
+  },
+  {
+    "id": "r8",
+    "title": "Warm-Up Protocols and Exercise Performance",
+    "authors": ["Bishop, D."],
+    "year": 2003,
+    "abstract": "A proper warm-up lasting 10-15 minutes improves exercise performance by raising core temperature, increasing muscle blood flow, and activating the neuromuscular system. General warm-up (light cardio 5 min) followed by specific warm-up (lighter sets of target exercises) is the gold standard. Cold muscles are more susceptible to strains and tears.",
+    "keywords": ["warm up", "warmup", "injury prevention", "performance", "preparation"]
+  }
+]
