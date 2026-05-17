@@ -1,15 +1,21 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
+import 'package:shared_preferences/shared_preferences.dart';
 import '../utils/constants.dart';
 import 'equipment_service.dart';
 import '../models/equipment.dart';
 import 'database_helper.dart';
-
-// Conditional TFLite import — only on mobile
-// tflite_flutter is not available on web
 import 'package:tflite_flutter/tflite_flutter.dart';
+
+// ── Data classes ────────────────────────────────────────────────────────────
+
+class LabelScore {
+  final String label;
+  final double score;
+  LabelScore(this.label, this.score);
+}
 
 class DetectionResult {
   final Equipment? equipment;
@@ -27,6 +33,8 @@ class DetectionResult {
   bool get detected => equipment != null && isAboveThreshold;
 }
 
+// ── Service ─────────────────────────────────────────────────────────────────
+
 class TFLiteService {
   static final TFLiteService _instance = TFLiteService._internal();
   factory TFLiteService() => _instance;
@@ -37,17 +45,26 @@ class TFLiteService {
   bool _isLoaded = false;
   bool _modelAvailable = false;
 
+  // Last top-N results for the confidence breakdown sheet
+  List<LabelScore> _lastTopResults = [];
+  List<LabelScore> get lastTopResults => List.unmodifiable(_lastTopResults);
+
+  // Feedback weights: label -> adjustment (-N..+N)
+  // Stored in SharedPreferences so they persist across sessions
+  Map<String, int> _feedbackWeights = {};
+
   bool get isLoaded => _isLoaded;
   bool get modelAvailable => _modelAvailable;
 
-  /// Load the TFLite model and labels from assets.
-  /// Returns false if model files are not found (demo mode will be used).
+  // ── Load model ─────────────────────────────────────────────────────────
+
   Future<bool> loadModel() async {
+    // Load persisted feedback weights
+    await _loadFeedbackWeights();
+
     try {
       _interpreter = await Interpreter.fromAsset('assets/model.tflite');
-      // Load labels
-      final labelsData = await _loadLabels();
-      _labels = labelsData;
+      _labels = await _loadLabels();
       _isLoaded = true;
       _modelAvailable = true;
       debugPrint('✅ TFLite model loaded. Labels: ${_labels.length}');
@@ -62,74 +79,92 @@ class TFLiteService {
 
   Future<List<String>> _loadLabels() async {
     try {
-      final labelsStr = await _loadAssetAsString('assets/labels.txt');
-      return labelsStr
-          .split('\n')
-          .map((l) => l.trim())
-          .where((l) => l.isNotEmpty)
-          .toList();
+      final str = await rootBundle.loadString('assets/labels.txt');
+      return str.split('\n').map((l) => l.trim()).where((l) => l.isNotEmpty).toList();
     } catch (_) {
       return [];
     }
   }
 
-  Future<String> _loadAssetAsString(String path) async {
-    // Using rootBundle equivalent
-    return '';
+  // ── Feedback / reinforcement ────────────────────────────────────────────
+
+  Future<void> _loadFeedbackWeights() async {
+    final prefs = await SharedPreferences.getInstance();
+    final keys = prefs.getKeys().where((k) => k.startsWith('fw_'));
+    _feedbackWeights = {
+      for (final k in keys) k.substring(3): prefs.getInt(k) ?? 0,
+    };
   }
 
-  /// Run inference on image bytes (JPEG/PNG).
-  /// Falls back to demo mode if model is not available.
+  /// Called when user confirms or denies a detection.
+  /// Adjusts an in-memory (and persisted) weight for that label,
+  /// which shifts confidence scores in future demo detections.
+  Future<void> recordFeedback({required String label, required bool correct}) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = 'fw_$label';
+    final current = _feedbackWeights[label] ?? 0;
+    final updated = correct ? (current + 1).clamp(-10, 10) : (current - 1).clamp(-10, 10);
+    _feedbackWeights[label] = updated;
+    await prefs.setInt(key, updated);
+    debugPrint('📊 Feedback recorded: $label → weight $updated');
+  }
+
+  double _applyFeedbackWeight(String label, double rawScore) {
+    final weight = _feedbackWeights[label] ?? 0;
+    // Each feedback point shifts confidence by 1.5%, capped at ±15%
+    final adjustment = weight * 0.015;
+    return (rawScore + adjustment).clamp(0.0, 1.0);
+  }
+
+  // ── Main detect ────────────────────────────────────────────────────────
+
   Future<DetectionResult> detect(Uint8List imageBytes) async {
-    if (!_modelAvailable) {
-      return _demoDetect(imageBytes);
-    }
+    if (!_modelAvailable) return _demoDetect(imageBytes);
     return _realDetect(imageBytes);
   }
+
+  // ── Real TFLite inference ───────────────────────────────────────────────
 
   Future<DetectionResult> _realDetect(Uint8List imageBytes) async {
     try {
       final image = img.decodeImage(imageBytes);
       if (image == null) throw Exception('Cannot decode image');
 
-      // Resize to model input size (224x224 for MobileNet-based)
       final resized = img.copyResize(image, width: 224, height: 224);
-
-      // Normalize pixel values to [0, 1]
       final inputTensor = _imageToFloat32List(resized);
 
-      // Run inference
       final outputShape = _interpreter!.getOutputTensor(0).shape;
-      final outputSize = outputShape.reduce((a, b) => a * b);
-      final output = List.filled(outputSize, 0.0).reshape(outputShape);
+      final numClasses = outputShape.last;
+      final output = List.generate(1, (_) => List<double>.filled(numClasses, 0.0));
 
       _interpreter!.run(inputTensor, output);
 
-      // Parse output
-      final scores = List<double>.from(output[0] as List);
-      int maxIdx = 0;
-      double maxScore = 0;
-      for (int i = 0; i < scores.length; i++) {
-        if (scores[i] > maxScore) {
-          maxScore = scores[i];
-          maxIdx = i;
-        }
-      }
+      final scores = output[0];
 
-      final rawLabel = maxIdx < _labels.length ? _labels[maxIdx] : 'unknown';
-      final equipment = EquipmentService().findByLabel(rawLabel);
+      // Build sorted top-5 results
+      final indexed = scores.asMap().entries.toList()
+        ..sort((a, b) => b.value.compareTo(a.value));
+      final top5 = indexed.take(5).toList();
+
+      _lastTopResults = top5.map((e) {
+        final lbl = e.key < _labels.length ? _labels[e.key] : 'class_${e.key}';
+        return LabelScore(lbl, _applyFeedbackWeight(lbl, e.value));
+      }).toList();
+
+      final best = _lastTopResults.first;
+      final equipment = EquipmentService().findByLabel(best.label);
 
       await DatabaseHelper().logAuditEvent(
         eventType: 'cv_detection',
-        details: 'label=$rawLabel, equipment=${equipment?.name ?? "none"}',
-        confidence: maxScore,
+        details: 'label=${best.label}, equipment=${equipment?.name ?? "none"}',
+        confidence: best.score,
       );
 
       return DetectionResult(
         equipment: equipment,
-        confidence: maxScore,
-        rawLabel: rawLabel,
-        isAboveThreshold: maxScore >= AppConstants.confidenceThreshold,
+        confidence: best.score,
+        rawLabel: best.label,
+        isAboveThreshold: best.score >= AppConstants.confidenceThreshold,
       );
     } catch (e) {
       debugPrint('Detection error: $e');
@@ -142,62 +177,67 @@ class TFLiteService {
     }
   }
 
-  /// Demo mode: cycles through equipment for demonstration purposes.
-  /// In a real deployment, replace with actual TFLite model.
+  // ── Demo mode ───────────────────────────────────────────────────────────
+
   static int _demoIndex = 0;
-  static final _demoEquipment = [
-    'Treadmill',
-    'Leg Press',
-    'Bench Press',
-    'Rowing Machine',
-    'Stationary Bike',
+
+  // All demo equipment with realistic "runner-up" alternatives
+  static final _demoScenarios = [
+    _DemoScenario('Treadmill',        [('Elliptical Trainer', 0.11), ('Stationary Bike', 0.06)]),
+    _DemoScenario('Leg Press',        [('Barbell Squat Rack', 0.09), ('Smith Machine', 0.05)]),
+    _DemoScenario('Bench Press',      [('Smith Machine', 0.10),      ('Dumbbell Rack', 0.07)]),
+    _DemoScenario('Rowing Machine',   [('Cable Machine', 0.08),      ('Lat Pulldown', 0.05)]),
+    _DemoScenario('Stationary Bike',  [('Treadmill', 0.09),          ('Elliptical Trainer', 0.06)]),
+    _DemoScenario('Pull-up Bar',      [('Lat Pulldown', 0.12),       ('Cable Machine', 0.05)]),
+    _DemoScenario('Lat Pulldown',     [('Cable Machine', 0.10),      ('Pull-up Bar', 0.07)]),
+    _DemoScenario('Elliptical Trainer',[('Treadmill', 0.10),         ('Stationary Bike', 0.07)]),
   ];
 
   Future<DetectionResult> _demoDetect(Uint8List imageBytes) async {
-    // Simulate processing delay
-    await Future.delayed(const Duration(milliseconds: 800));
+    await Future.delayed(const Duration(milliseconds: 700));
 
-    final name = _demoEquipment[_demoIndex % _demoEquipment.length];
+    final scenario = _demoScenarios[_demoIndex % _demoScenarios.length];
     _demoIndex++;
 
-    final equipment = EquipmentService().findByLabel(name);
-    // Randomize confidence slightly above threshold for demo realism
-    final confidence = 0.78 + (_demoIndex % 10) * 0.015;
+    // Base confidence with small variation
+    final baseConf = 0.78 + (_demoIndex % 8) * 0.018;
+    final topLabel = scenario.topLabel;
+    final adjustedConf = _applyFeedbackWeight(topLabel, baseConf).clamp(0.0, 1.0);
+
+    // Build top results list: winner + runner-ups
+    _lastTopResults = [
+      LabelScore(topLabel, adjustedConf),
+      ...scenario.alternatives.map((a) =>
+        LabelScore(a.$1, _applyFeedbackWeight(a.$1, a.$2))),
+    ];
+
+    final equipment = EquipmentService().findByLabel(topLabel);
 
     await DatabaseHelper().logAuditEvent(
       eventType: 'cv_detection_demo',
-      details: 'label=$name (demo mode)',
-      confidence: confidence,
+      details: 'label=$topLabel (demo)',
+      confidence: adjustedConf,
     );
 
     return DetectionResult(
       equipment: equipment,
-      confidence: confidence.clamp(0.0, 1.0),
-      rawLabel: name,
-      isAboveThreshold: true,
+      confidence: adjustedConf,
+      rawLabel: topLabel,
+      isAboveThreshold: adjustedConf >= AppConstants.confidenceThreshold,
     );
   }
 
-  /// Convert image to Float32 list for MobileNet input
+  // ── Image preprocessing ─────────────────────────────────────────────────
+
   List<List<List<List<double>>>> _imageToFloat32List(img.Image image) {
-    final input = List.generate(
-      1,
-      (_) => List.generate(
-        224,
-        (y) => List.generate(
-          224,
-          (x) {
-            final pixel = image.getPixel(x, y);
-            return [
-              pixel.r / 255.0,
-              pixel.g / 255.0,
-              pixel.b / 255.0,
-            ];
-          },
-        ),
+    return List.generate(1, (_) =>
+      List.generate(224, (y) =>
+        List.generate(224, (x) {
+          final pixel = image.getPixel(x, y);
+          return [pixel.r / 255.0, pixel.g / 255.0, pixel.b / 255.0];
+        }),
       ),
     );
-    return input;
   }
 
   void dispose() {
@@ -205,13 +245,8 @@ class TFLiteService {
   }
 }
 
-// Extension for reshaping lists (needed for TFLite output)
-extension ListReshape on List {
-  List reshape(List<int> shape) {
-    // Simple implementation for 2D output
-    if (shape.length == 2 && shape[0] == 1) {
-      return [this];
-    }
-    return this;
-  }
+class _DemoScenario {
+  final String topLabel;
+  final List<(String, double)> alternatives;
+  const _DemoScenario(this.topLabel, this.alternatives);
 }

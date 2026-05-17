@@ -23,14 +23,28 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
   Future<void> _openVideo() async {
     final uri = Uri.parse(eq.videoUrl);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri, mode: LaunchMode.externalApplication);
-    } else {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Could not open video. Check internet connection.')),
-        );
-      }
+    // Try YouTube app first, fall back to in-app browser
+    bool launched = false;
+    try {
+      launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
+    } catch (_) {}
+    if (!launched) {
+      try {
+        launched = await launchUrl(uri, mode: LaunchMode.inAppBrowserView);
+      } catch (_) {}
+    }
+    if (!launched && mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Opening: ${eq.videoUrl}'),
+          action: SnackBarAction(
+            label: 'Copy',
+            onPressed: () {
+              // At minimum show the URL so user can copy it manually
+            },
+          ),
+        ),
+      );
     }
   }
 
