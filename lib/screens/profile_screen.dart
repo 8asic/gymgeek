@@ -23,6 +23,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   bool _gdprConsent = true;
   List<Equipment> _recommended = [];
   bool _loading = true;
+  ScaffoldFeatureController? _activeSnack;
 
   @override
   void initState() {
@@ -56,24 +57,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _saveGoal(GoalType type) async {
-    final goal = FitnessGoal(
-      goalType: type,
-      startDate: DateTime.now(),
-    );
+    // Tapping the already-selected goal unselects it
+    if (_currentGoal?.goalType == type) {
+      await DatabaseHelper().deleteAllGoals();
+      await DatabaseHelper().logAuditEvent(
+          eventType: 'goal_cleared', details: 'type=${type.name}');
+      await _load();
+      _showSnack('Goal cleared');
+      return;
+    }
+    final goal = FitnessGoal(goalType: type, startDate: DateTime.now());
     await DatabaseHelper().insertGoal(goal);
     await DatabaseHelper().logAuditEvent(
-      eventType: 'goal_set',
-      details: 'type=${type.name}',
-    );
+        eventType: 'goal_set', details: 'type=${type.name}');
     await _load();
-    if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Goal set: ${type.label} ${type.icon}'),
-          backgroundColor: AppColors.success,
-        ),
-      );
-    }
+    _showSnack('Goal set: ${type.label} ${type.icon}', color: AppColors.success);
+  }
+
+  void _showSnack(String msg, {Color? color}) {
+    if (!mounted) return;
+    _activeSnack?.close();
+    _activeSnack = ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(msg),
+      backgroundColor: color ?? AppColors.card,
+      duration: const Duration(seconds: 2),
+    ));
   }
 
   Future<void> _setAiRecommendations(bool val) async {
@@ -112,9 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     if (confirmed == true) {
       await DatabaseHelper().deleteAllUserData();
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('All data deleted (GDPR compliant)')),
-        );
+        _showSnack('All data deleted (GDPR compliant)');
         _load();
       }
     }
