@@ -8,6 +8,7 @@ import '../utils/constants.dart';
 import '../widgets/equipment_card.dart';
 import 'video_player_screen.dart';
 import 'login_screen.dart';
+import 'exercise_library_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -253,14 +254,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _recommendedSection() {
+    final goal = _currentGoal!.goalType;
+    // Map goal to primary muscle groups for the library filter
+    final muscleMap = {
+      GoalType.strength: 'chest',
+      GoalType.endurance: null,
+      GoalType.weightLoss: null,
+      GoalType.general: null,
+    };
+    final muscle = muscleMap[goal];
+
     return Column(
-      children: _recommended.take(3).map((eq) => EquipmentCard(
-        equipment: eq,
-        onTap: () => Navigator.push(
-          context,
-          MaterialPageRoute(builder: (_) => VideoPlayerScreen(equipment: eq)),
+      children: [
+        // Equipment cards (existing)
+        ..._recommended.take(2).map((eq) => EquipmentCard(
+          equipment: eq,
+          onTap: () => Navigator.push(context,
+              MaterialPageRoute(builder: (_) => VideoPlayerScreen(equipment: eq))),
+        )),
+        const SizedBox(height: 10),
+        // Link to full exercise library filtered by goal
+        OutlinedButton.icon(
+          onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (_) => ExerciseLibraryScreen(
+                initialMuscle: muscle,
+                standalone: true,
+              ),
+            ),
+          ),
+          icon: const Icon(Icons.fitness_center, size: 16),
+          label: Text('Browse ${goal.label} exercises'),
+          style: OutlinedButton.styleFrom(
+            foregroundColor: AppColors.primary,
+            side: const BorderSide(color: AppColors.primary),
+            minimumSize: const Size(double.infinity, 46),
+          ),
         ),
-      )).toList(),
+      ],
     );
   }
 

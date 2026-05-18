@@ -4,16 +4,20 @@ import 'utils/constants.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_shell.dart';
 import 'services/equipment_service.dart';
+import 'services/exercise_service.dart';
 import 'services/tflite_service.dart';
 import 'services/llm_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Pre-load services
-  await EquipmentService().load();
-  await TFLiteService().loadModel();
-  await LLMService().loadResearchBase();
+  // Pre-load all services in parallel
+  await Future.wait([
+    EquipmentService().load(),
+    ExerciseService().load(),
+    TFLiteService().loadModel(),
+    LLMService().loadResearchBase(),
+  ]);
 
   runApp(const GymGeekApp());
 }

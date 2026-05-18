@@ -35,9 +35,9 @@ class GymGeekBottomNav extends StatelessWidget {
             label: 'Scan',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search_outlined),
-            activeIcon: Icon(Icons.search),
-            label: 'Search',
+            icon: Icon(Icons.fitness_center_outlined),
+            activeIcon: Icon(Icons.fitness_center),
+            label: 'Exercises',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.bar_chart_outlined),

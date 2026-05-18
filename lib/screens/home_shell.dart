@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/bottom_nav_bar.dart';
 import 'camera_screen.dart';
-import 'search_screen.dart';
+import 'exercise_library_screen.dart';
 import 'dashboard_screen.dart';
 import 'research_screen.dart';
 import 'profile_screen.dart';
@@ -16,9 +16,10 @@ class HomeShell extends StatefulWidget {
 class _HomeShellState extends State<HomeShell> {
   int _index = 0;
 
+  // IndexedStack keeps all screens alive — state preserved when switching tabs
   final _screens = const [
     CameraScreen(),
-    SearchScreen(),
+    ExerciseLibraryScreen(),   // replaces old flat SearchScreen
     DashboardScreen(),
     ResearchScreen(),
     ProfileScreen(),

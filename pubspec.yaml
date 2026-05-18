@@ -53,6 +53,7 @@ flutter:
     - assets/
     - assets/equipment.json
     - assets/research.json
+    - assets/exercises.json
 
   # Uncomment once you add the model files:
   # - assets/model.tflite

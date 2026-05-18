@@ -1,0 +1,1466 @@
+[
+  {
+    "id": "barbell-bench-press",
+    "name": "Barbell Bench Press",
+    "category": "Strength",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "triceps"
+    ],
+    "equipment": "barbell",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Lie on a flat bench with feet flat on floor",
+      "Grip bar slightly wider than shoulder width",
+      "Lower bar to mid-chest with control",
+      "Press back up to full extension",
+      "Keep back flat, do not arch excessively"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-bench-press/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-bench-press/images/1.jpg"
+    ]
+  },
+  {
+    "id": "incline-dumbbell-press",
+    "name": "Incline Dumbbell Press",
+    "category": "Strength",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "triceps"
+    ],
+    "equipment": "dumbbell",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Set bench to 30-45 degree incline",
+      "Hold dumbbells at shoulder level",
+      "Press up and slightly together",
+      "Lower with control to starting position"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/incline-dumbbell-press/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/incline-dumbbell-press/images/1.jpg"
+    ]
+  },
+  {
+    "id": "push-up",
+    "name": "Push-Up",
+    "category": "Strength",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "triceps",
+      "core"
+    ],
+    "equipment": "body only",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Place hands shoulder-width apart",
+      "Keep body straight from head to heels",
+      "Lower chest to floor",
+      "Push back to starting position",
+      "Keep core braced throughout"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/push-up/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/push-up/images/1.jpg"
+    ]
+  },
+  {
+    "id": "cable-fly",
+    "name": "Cable Fly",
+    "category": "Strength",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": "cable",
+    "level": "intermediate",
+    "mechanic": "isolation",
+    "instructions": [
+      "Set cables at shoulder height",
+      "Stand in middle, one foot forward",
+      "Bring handles together in arc motion",
+      "Squeeze chest at peak contraction",
+      "Return slowly with control"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/cable-fly/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/cable-fly/images/1.jpg"
+    ]
+  },
+  {
+    "id": "chest-dip",
+    "name": "Chest Dip",
+    "category": "Strength",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "shoulders"
+    ],
+    "equipment": "body only",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Grip parallel bars, arms straight",
+      "Lean forward slightly for chest focus",
+      "Lower until upper arms parallel to floor",
+      "Push back up to starting position"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/chest-dip/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/chest-dip/images/1.jpg"
+    ]
+  },
+  {
+    "id": "decline-barbell-bench-press",
+    "name": "Decline Barbell Bench Press",
+    "category": "Strength",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "shoulders"
+    ],
+    "equipment": "barbell",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Set bench to -15 to -30 degree decline",
+      "Hook feet under pads",
+      "Lower bar to lower chest",
+      "Press back up explosively",
+      "Use spotter for heavy weights"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/decline-barbell-bench-press/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/decline-barbell-bench-press/images/1.jpg"
+    ]
+  },
+  {
+    "id": "dumbbell-fly",
+    "name": "Dumbbell Fly",
+    "category": "Strength",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders"
+    ],
+    "equipment": "dumbbell",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Lie flat on bench, dumbbells above chest",
+      "Lower arms in wide arc, slight elbow bend",
+      "Feel stretch in chest at bottom",
+      "Bring dumbbells back together in arc",
+      "Keep movement smooth and controlled"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/dumbbell-fly/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/dumbbell-fly/images/1.jpg"
+    ]
+  },
+  {
+    "id": "pull-up",
+    "name": "Pull-Up",
+    "category": "Strength",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "middle back",
+      "shoulders"
+    ],
+    "equipment": "body only",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Hang from bar with overhand grip",
+      "Pull yourself up until chin clears bar",
+      "Lower with full control to dead hang",
+      "Keep core engaged throughout",
+      "Avoid swinging or kipping"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/pull-up/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/pull-up/images/1.jpg"
+    ]
+  },
+  {
+    "id": "barbell-deadlift",
+    "name": "Barbell Deadlift",
+    "category": "Strength",
+    "primaryMuscles": [
+      "lower back"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "lats",
+      "traps"
+    ],
+    "equipment": "barbell",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Stand with feet hip-width, bar over mid-foot",
+      "Hinge at hips, grip bar just outside legs",
+      "Keep chest up, back flat",
+      "Drive through floor to stand tall",
+      "Lower bar back under control"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-deadlift/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-deadlift/images/1.jpg"
+    ]
+  },
+  {
+    "id": "lat-pulldown",
+    "name": "Lat Pulldown",
+    "category": "Strength",
+    "primaryMuscles": [
+      "lats"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "middle back"
+    ],
+    "equipment": "cable",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Sit with thighs under pad, grip bar wide",
+      "Pull bar to upper chest, lean back slightly",
+      "Squeeze lats at bottom position",
+      "Return bar slowly to full arm extension",
+      "Keep shoulders depressed throughout"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/lat-pulldown/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/lat-pulldown/images/1.jpg"
+    ]
+  },
+  {
+    "id": "seated-cable-row",
+    "name": "Seated Cable Row",
+    "category": "Strength",
+    "primaryMuscles": [
+      "middle back"
+    ],
+    "secondaryMuscles": [
+      "lats",
+      "biceps"
+    ],
+    "equipment": "cable",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Sit on cable row machine, feet on platform",
+      "Grip handle with both hands",
+      "Pull to lower abdomen, elbows close to sides",
+      "Squeeze shoulder blades together",
+      "Return with control, slight forward lean"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/seated-cable-row/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/seated-cable-row/images/1.jpg"
+    ]
+  },
+  {
+    "id": "bent-over-barbell-row",
+    "name": "Bent-Over Barbell Row",
+    "category": "Strength",
+    "primaryMuscles": [
+      "middle back"
+    ],
+    "secondaryMuscles": [
+      "lats",
+      "biceps",
+      "lower back"
+    ],
+    "equipment": "barbell",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Hinge forward ~45\u00b0, bar hanging at arms length",
+      "Pull bar to lower chest or upper abdomen",
+      "Drive elbows back and squeeze back",
+      "Lower with control",
+      "Maintain neutral spine throughout"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/bent-over-barbell-row/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/bent-over-barbell-row/images/1.jpg"
+    ]
+  },
+  {
+    "id": "dumbbell-row",
+    "name": "Single-Arm Dumbbell Row",
+    "category": "Strength",
+    "primaryMuscles": [
+      "middle back"
+    ],
+    "secondaryMuscles": [
+      "lats",
+      "biceps"
+    ],
+    "equipment": "dumbbell",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Place one knee and hand on bench",
+      "Row dumbbell to hip, elbow close to body",
+      "Squeeze at top, lower slowly",
+      "Keep back parallel to floor",
+      "Complete all reps before switching sides"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/dumbbell-one-arm-row/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/dumbbell-one-arm-row/images/1.jpg"
+    ]
+  },
+  {
+    "id": "face-pull",
+    "name": "Face Pull",
+    "category": "Strength",
+    "primaryMuscles": [
+      "middle back"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "traps"
+    ],
+    "equipment": "cable",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Set cable to head height, use rope attachment",
+      "Pull rope to face, elbows high and wide",
+      "Externally rotate at end of movement",
+      "Hold briefly, return with control",
+      "Great for shoulder health and posture"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/face-pull/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/face-pull/images/1.jpg"
+    ]
+  },
+  {
+    "id": "barbell-squat",
+    "name": "Barbell Back Squat",
+    "category": "Strength",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "lower back"
+    ],
+    "equipment": "barbell",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Bar across upper back, feet shoulder-width",
+      "Brace core, chest up",
+      "Squat until thighs parallel to floor",
+      "Drive through heels to stand",
+      "Keep knees tracking over toes"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-squat/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-squat/images/1.jpg"
+    ]
+  },
+  {
+    "id": "leg-press",
+    "name": "Leg Press",
+    "category": "Strength",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings"
+    ],
+    "equipment": "machine",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Sit in machine, feet shoulder-width on platform",
+      "Lower weight until knees at 90\u00b0",
+      "Push through heels to extend legs",
+      "Do not lock out knees at top",
+      "Keep lower back against pad"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/leg-press/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/leg-press/images/1.jpg"
+    ]
+  },
+  {
+    "id": "romanian-deadlift",
+    "name": "Romanian Deadlift",
+    "category": "Strength",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "lower back"
+    ],
+    "equipment": "barbell",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Stand with bar at hips, slight knee bend",
+      "Hinge at hips, pushing them back",
+      "Lower bar along legs until hamstring stretch",
+      "Drive hips forward to return to top",
+      "Keep back flat throughout movement"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/romanian-deadlift/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/romanian-deadlift/images/1.jpg"
+    ]
+  },
+  {
+    "id": "walking-lunge",
+    "name": "Walking Lunge",
+    "category": "Strength",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "equipment": "body only",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Stand tall, step forward into lunge",
+      "Lower back knee toward floor",
+      "Front knee stays over ankle",
+      "Push off front foot, bring feet together",
+      "Continue alternating legs forward"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/walking-lunge/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/walking-lunge/images/1.jpg"
+    ]
+  },
+  {
+    "id": "leg-curl",
+    "name": "Lying Leg Curl",
+    "category": "Strength",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "calves"
+    ],
+    "equipment": "machine",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Lie face down on machine, pad behind ankles",
+      "Curl legs toward glutes",
+      "Hold briefly at peak contraction",
+      "Lower with control",
+      "Keep hips pressed into pad"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/lying-leg-curls/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/lying-leg-curls/images/1.jpg"
+    ]
+  },
+  {
+    "id": "leg-extension",
+    "name": "Leg Extension",
+    "category": "Strength",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Sit in machine, pad on front of ankles",
+      "Extend legs to full straightness",
+      "Hold briefly at top",
+      "Lower with control",
+      "Keep back against seat pad"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/leg-extensions/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/leg-extensions/images/1.jpg"
+    ]
+  },
+  {
+    "id": "calf-raise",
+    "name": "Standing Calf Raise",
+    "category": "Strength",
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "machine",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Stand on edge of platform, heels hanging",
+      "Rise up on toes as high as possible",
+      "Hold at top for 1-2 seconds",
+      "Lower heels below platform level",
+      "Full range of motion is key"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/standing-calf-raises/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/standing-calf-raises/images/1.jpg"
+    ]
+  },
+  {
+    "id": "goblet-squat",
+    "name": "Goblet Squat",
+    "category": "Strength",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "core"
+    ],
+    "equipment": "dumbbell",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Hold dumbbell vertically at chest",
+      "Feet shoulder-width, toes slightly out",
+      "Squat deep, elbows inside knees",
+      "Stand back up, driving through heels",
+      "Great for beginners learning squat pattern"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/goblet-squat/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/goblet-squat/images/1.jpg"
+    ]
+  },
+  {
+    "id": "barbell-overhead-press",
+    "name": "Barbell Overhead Press",
+    "category": "Strength",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps",
+      "traps"
+    ],
+    "equipment": "barbell",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Grip bar just outside shoulders",
+      "Press from upper chest to full overhead extension",
+      "Lock out elbows at top",
+      "Lower back to clavicle with control",
+      "Brace core, do not lean back excessively"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-shoulder-press/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-shoulder-press/images/1.jpg"
+    ]
+  },
+  {
+    "id": "dumbbell-lateral-raise",
+    "name": "Dumbbell Lateral Raise",
+    "category": "Strength",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Stand with dumbbells at sides",
+      "Raise arms out to sides to shoulder height",
+      "Slight bend in elbows throughout",
+      "Lower slowly \u2014 this is where growth happens",
+      "Avoid shrugging or using momentum"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/side-lateral-raise/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/side-lateral-raise/images/1.jpg"
+    ]
+  },
+  {
+    "id": "front-raise",
+    "name": "Dumbbell Front Raise",
+    "category": "Strength",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "traps"
+    ],
+    "equipment": "dumbbell",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Stand with dumbbells at thighs",
+      "Raise one or both arms forward to shoulder height",
+      "Keep slight elbow bend",
+      "Lower with control",
+      "Avoid swinging torso"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/front-dumbbell-raise/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/front-dumbbell-raise/images/1.jpg"
+    ]
+  },
+  {
+    "id": "reverse-fly",
+    "name": "Reverse Dumbbell Fly",
+    "category": "Strength",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "middle back",
+      "traps"
+    ],
+    "equipment": "dumbbell",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Hinge forward at hips ~45\u00b0",
+      "Raise arms out to sides, elbows slightly bent",
+      "Squeeze rear delts at top",
+      "Lower slowly to starting position",
+      "Keep back flat, not rounded"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/reverse-flyes/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/reverse-flyes/images/1.jpg"
+    ]
+  },
+  {
+    "id": "arnold-press",
+    "name": "Arnold Press",
+    "category": "Strength",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "triceps"
+    ],
+    "equipment": "dumbbell",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Start with palms facing you at shoulder height",
+      "As you press up, rotate palms outward",
+      "Finish with palms facing forward at top",
+      "Reverse rotation as you lower",
+      "Full rotational range of motion"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/arnold-dumbbell-press/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/arnold-dumbbell-press/images/1.jpg"
+    ]
+  },
+  {
+    "id": "barbell-curl",
+    "name": "Barbell Curl",
+    "category": "Strength",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "equipment": "barbell",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Stand with barbell at hip height, underhand grip",
+      "Curl bar to shoulder level, elbows fixed",
+      "Squeeze biceps at top",
+      "Lower slowly \u2014 3 second negative",
+      "Keep upper arms still throughout"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-curl/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-curl/images/1.jpg"
+    ]
+  },
+  {
+    "id": "dumbbell-curl",
+    "name": "Dumbbell Curl",
+    "category": "Strength",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms"
+    ],
+    "equipment": "dumbbell",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Stand or sit with dumbbells at sides",
+      "Curl one or both arms to shoulder",
+      "Supinate wrist at top for full contraction",
+      "Lower with control",
+      "Alternate arms or do simultaneously"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/dumbbell-bicep-curl/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/dumbbell-bicep-curl/images/1.jpg"
+    ]
+  },
+  {
+    "id": "hammer-curl",
+    "name": "Hammer Curl",
+    "category": "Strength",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [
+      "forearms",
+      "brachialis"
+    ],
+    "equipment": "dumbbell",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Hold dumbbells in neutral grip (thumbs up)",
+      "Curl to shoulder keeping thumbs pointing up",
+      "Lower with control",
+      "Targets brachialis for thicker upper arm",
+      "Can be done alternating or together"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/hammer-curls/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/hammer-curls/images/1.jpg"
+    ]
+  },
+  {
+    "id": "preacher-curl",
+    "name": "Preacher Curl",
+    "category": "Strength",
+    "primaryMuscles": [
+      "biceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Sit at preacher bench, arm over pad",
+      "Curl bar to chin with full range",
+      "Lower slowly to full extension",
+      "Preacher pad eliminates cheating",
+      "Great for peak bicep development"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/preacher-curl/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/preacher-curl/images/1.jpg"
+    ]
+  },
+  {
+    "id": "tricep-pushdown",
+    "name": "Tricep Pushdown",
+    "category": "Strength",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "cable",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Set cable to high position, use bar or rope",
+      "Elbows at sides, push down to full extension",
+      "Squeeze triceps at bottom",
+      "Return slowly, elbows stay at sides",
+      "Rope version allows wrist rotation"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/triceps-pushdown/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/triceps-pushdown/images/1.jpg"
+    ]
+  },
+  {
+    "id": "skull-crusher",
+    "name": "Skull Crusher",
+    "category": "Strength",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "barbell",
+    "level": "intermediate",
+    "mechanic": "isolation",
+    "instructions": [
+      "Lie on bench, bar above chest",
+      "Lower bar toward forehead, elbows fixed",
+      "Extend arms back to starting position",
+      "Keep upper arms vertical and still",
+      "Use EZ bar to reduce wrist strain"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/lying-triceps-press/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/lying-triceps-press/images/1.jpg"
+    ]
+  },
+  {
+    "id": "tricep-dip",
+    "name": "Tricep Dip",
+    "category": "Strength",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [
+      "chest",
+      "shoulders"
+    ],
+    "equipment": "body only",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Sit on bench, hands beside hips",
+      "Slide off bench, legs extended",
+      "Lower until elbows at 90\u00b0",
+      "Push back up to starting position",
+      "Keep torso upright for tricep focus"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/tricep-dips/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/tricep-dips/images/1.jpg"
+    ]
+  },
+  {
+    "id": "overhead-tricep-extension",
+    "name": "Overhead Tricep Extension",
+    "category": "Strength",
+    "primaryMuscles": [
+      "triceps"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "dumbbell",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Hold dumbbell overhead with both hands",
+      "Lower behind head, elbows pointing up",
+      "Extend arms back to starting position",
+      "Keep elbows close to head",
+      "Full stretch of long head of tricep"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/dumbbell-one-arm-triceps-extension/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/dumbbell-one-arm-triceps-extension/images/1.jpg"
+    ]
+  },
+  {
+    "id": "plank",
+    "name": "Plank",
+    "category": "Strength",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [
+      "lower back",
+      "shoulders"
+    ],
+    "equipment": "body only",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Forearms on ground, elbows under shoulders",
+      "Body straight from head to heels",
+      "Brace core \u2014 imagine bracing for a punch",
+      "Hold position, breathe normally",
+      "Do not let hips sag or raise"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/plank/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/plank/images/1.jpg"
+    ]
+  },
+  {
+    "id": "crunch",
+    "name": "Crunch",
+    "category": "Strength",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [],
+    "equipment": "body only",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Lie on back, knees bent, hands at temples",
+      "Curl shoulders toward knees",
+      "Do not pull on neck",
+      "Lower with control",
+      "Exhale on the way up"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/crunch/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/crunch/images/1.jpg"
+    ]
+  },
+  {
+    "id": "hanging-leg-raise",
+    "name": "Hanging Leg Raise",
+    "category": "Strength",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [
+      "hip flexors"
+    ],
+    "equipment": "body only",
+    "level": "intermediate",
+    "mechanic": "isolation",
+    "instructions": [
+      "Hang from pull-up bar, arms straight",
+      "Raise legs to 90\u00b0 or higher",
+      "Lower with control \u2014 no swinging",
+      "Keep shoulders packed",
+      "Posterior pelvic tilt at top for full contraction"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/hanging-leg-raise/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/hanging-leg-raise/images/1.jpg"
+    ]
+  },
+  {
+    "id": "russian-twist",
+    "name": "Russian Twist",
+    "category": "Strength",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [
+      "obliques"
+    ],
+    "equipment": "body only",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Sit with knees bent, lean back slightly",
+      "Hold weight or clasp hands together",
+      "Rotate torso side to side",
+      "Feet can be raised for more difficulty",
+      "Control the rotation \u2014 do not rush"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/russian-twist/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/russian-twist/images/1.jpg"
+    ]
+  },
+  {
+    "id": "ab-wheel-rollout",
+    "name": "Ab Wheel Rollout",
+    "category": "Strength",
+    "primaryMuscles": [
+      "abdominals"
+    ],
+    "secondaryMuscles": [
+      "lower back",
+      "shoulders"
+    ],
+    "equipment": "other",
+    "level": "advanced",
+    "mechanic": "compound",
+    "instructions": [
+      "Kneel on floor, hold ab wheel handles",
+      "Roll forward until body nearly parallel to floor",
+      "Pull back to starting position using core",
+      "Keep back flat throughout",
+      "Start with partial range if needed"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/ab-wheel-rollout/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/ab-wheel-rollout/images/1.jpg"
+    ]
+  },
+  {
+    "id": "treadmill-run",
+    "name": "Treadmill Run",
+    "category": "Cardio",
+    "primaryMuscles": [
+      "quadriceps",
+      "calves"
+    ],
+    "secondaryMuscles": [
+      "hamstrings",
+      "glutes",
+      "core"
+    ],
+    "equipment": "machine",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Set speed appropriate to fitness level",
+      "Land mid-foot, not heel",
+      "Keep upright posture, slight forward lean",
+      "Arms at 90\u00b0, drive back not across",
+      "Use 1% incline to simulate outdoor running"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/treadmill/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/treadmill/images/1.jpg"
+    ]
+  },
+  {
+    "id": "stationary-bike",
+    "name": "Stationary Bike",
+    "category": "Cardio",
+    "primaryMuscles": [
+      "quadriceps",
+      "calves"
+    ],
+    "secondaryMuscles": [
+      "hamstrings",
+      "glutes"
+    ],
+    "equipment": "machine",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Adjust seat so knee is slightly bent at bottom",
+      "Aim for 80-100 RPM cadence",
+      "Keep resistance challenging but sustainable",
+      "Engage core, avoid rocking hips",
+      "Great low-impact cardio option"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/stationary-bike/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/stationary-bike/images/1.jpg"
+    ]
+  },
+  {
+    "id": "rowing-machine",
+    "name": "Rowing Machine",
+    "category": "Cardio",
+    "primaryMuscles": [
+      "lats",
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "biceps",
+      "core",
+      "hamstrings"
+    ],
+    "equipment": "machine",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Catch: knees bent, arms straight, body forward",
+      "Drive through legs first",
+      "As legs straighten, lean back slightly",
+      "Pull handle to lower chest",
+      "Return in reverse order: arms, body, legs"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/rowing/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/rowing/images/1.jpg"
+    ]
+  },
+  {
+    "id": "elliptical",
+    "name": "Elliptical Trainer",
+    "category": "Cardio",
+    "primaryMuscles": [
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "hamstrings",
+      "calves"
+    ],
+    "equipment": "machine",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Keep weight in heels not toes",
+      "Use arm handles for full body workout",
+      "Maintain upright posture",
+      "Vary resistance and incline",
+      "Low impact \u2014 good for joint issues"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/elliptical/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/elliptical/images/1.jpg"
+    ]
+  },
+  {
+    "id": "jump-rope",
+    "name": "Jump Rope",
+    "category": "Cardio",
+    "primaryMuscles": [
+      "calves"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "core"
+    ],
+    "equipment": "other",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Hold handles at hip height",
+      "Jump just high enough to clear rope (2-3cm)",
+      "Land on balls of feet",
+      "Keep elbows in, wrists rotate the rope",
+      "Start with 30s intervals, build up"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/jump-rope/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/jump-rope/images/1.jpg"
+    ]
+  },
+  {
+    "id": "hip-thrust",
+    "name": "Barbell Hip Thrust",
+    "category": "Strength",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings",
+      "quadriceps"
+    ],
+    "equipment": "barbell",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Sit against bench, bar across hips",
+      "Plant feet flat, shoulder-width apart",
+      "Drive hips up to form straight line shoulder-knee",
+      "Squeeze glutes hard at top",
+      "Lower with control"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-hip-thrust/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/barbell-hip-thrust/images/1.jpg"
+    ]
+  },
+  {
+    "id": "glute-bridge",
+    "name": "Glute Bridge",
+    "category": "Strength",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings",
+      "lower back"
+    ],
+    "equipment": "body only",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Lie on back, knees bent, feet flat",
+      "Drive hips up, squeezing glutes",
+      "Hold at top for 2 seconds",
+      "Lower slowly",
+      "Can add resistance with barbell or dumbbell"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/glute-bridge/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/glute-bridge/images/1.jpg"
+    ]
+  },
+  {
+    "id": "cable-kickback",
+    "name": "Cable Glute Kickback",
+    "category": "Strength",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hamstrings"
+    ],
+    "equipment": "cable",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Attach ankle cuff to low cable",
+      "Stand facing machine, slight forward lean",
+      "Kick leg back and up, squeezing glute",
+      "Return with control",
+      "Keep core braced, minimal hip rotation"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/cable-hip-adduction/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/cable-hip-adduction/images/1.jpg"
+    ]
+  },
+  {
+    "id": "burpee",
+    "name": "Burpee",
+    "category": "Cardio",
+    "primaryMuscles": [
+      "chest",
+      "quadriceps"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "core",
+      "calves"
+    ],
+    "equipment": "body only",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Start standing, drop hands to floor",
+      "Jump feet back to push-up position",
+      "Perform one push-up (optional)",
+      "Jump feet to hands",
+      "Explosively jump up with arms overhead"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/burpees/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/burpees/images/1.jpg"
+    ]
+  },
+  {
+    "id": "kettlebell-swing",
+    "name": "Kettlebell Swing",
+    "category": "Strength",
+    "primaryMuscles": [
+      "glutes",
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "lower back",
+      "shoulders",
+      "core"
+    ],
+    "equipment": "kettlebell",
+    "level": "intermediate",
+    "mechanic": "compound",
+    "instructions": [
+      "Hinge at hips, hike kettlebell back",
+      "Drive hips forward explosively",
+      "Bell swings to shoulder height",
+      "Let bell fall back, hinge again",
+      "Power comes from hips, not arms"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/kettlebell-swing/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/kettlebell-swing/images/1.jpg"
+    ]
+  },
+  {
+    "id": "clean-and-press",
+    "name": "Dumbbell Clean and Press",
+    "category": "Strength",
+    "primaryMuscles": [
+      "shoulders"
+    ],
+    "secondaryMuscles": [
+      "glutes",
+      "traps",
+      "triceps"
+    ],
+    "equipment": "dumbbell",
+    "level": "advanced",
+    "mechanic": "compound",
+    "instructions": [
+      "Start with dumbbells at sides",
+      "Clean to shoulders in one explosive motion",
+      "Press overhead to full extension",
+      "Lower dumbbells back to shoulders",
+      "Return to starting position"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/dumbbell-clean-and-press/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/dumbbell-clean-and-press/images/1.jpg"
+    ]
+  },
+  {
+    "id": "farmers-walk",
+    "name": "Farmer's Walk",
+    "category": "Strength",
+    "primaryMuscles": [
+      "forearms",
+      "traps"
+    ],
+    "secondaryMuscles": [
+      "core",
+      "quadriceps",
+      "calves"
+    ],
+    "equipment": "dumbbell",
+    "level": "beginner",
+    "mechanic": "compound",
+    "instructions": [
+      "Pick up heavy dumbbells or kettlebells",
+      "Walk forward with upright posture",
+      "Take short, controlled steps",
+      "Keep shoulders back and down",
+      "Great for grip strength and conditioning"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/farmers-walk/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/farmers-walk/images/1.jpg"
+    ]
+  },
+  {
+    "id": "hip-flexor-stretch",
+    "name": "Hip Flexor Stretch",
+    "category": "Stretching",
+    "primaryMuscles": [
+      "hip flexors"
+    ],
+    "secondaryMuscles": [
+      "quadriceps"
+    ],
+    "equipment": "body only",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Kneel on one knee, other foot forward",
+      "Shift weight forward until stretch in front hip",
+      "Keep torso upright",
+      "Hold 30-60 seconds",
+      "Switch sides"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/kneeling-hip-flexor-stretch/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/kneeling-hip-flexor-stretch/images/1.jpg"
+    ]
+  },
+  {
+    "id": "hamstring-stretch",
+    "name": "Standing Hamstring Stretch",
+    "category": "Stretching",
+    "primaryMuscles": [
+      "hamstrings"
+    ],
+    "secondaryMuscles": [
+      "lower back"
+    ],
+    "equipment": "body only",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Stand and hinge forward at hips",
+      "Reach toward toes, keeping back flat",
+      "Hold when you feel hamstring tension",
+      "Breathe and relax deeper into stretch",
+      "Hold 30-60 seconds"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/standing-hamstring-stretch/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/standing-hamstring-stretch/images/1.jpg"
+    ]
+  },
+  {
+    "id": "chest-stretch",
+    "name": "Doorway Chest Stretch",
+    "category": "Stretching",
+    "primaryMuscles": [
+      "chest"
+    ],
+    "secondaryMuscles": [
+      "shoulders",
+      "biceps"
+    ],
+    "equipment": "body only",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Stand in doorway, arms at 90\u00b0",
+      "Step forward until stretch in chest",
+      "Hold 30-60 seconds",
+      "Vary arm height to target different fibers",
+      "Great counter to desk posture"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/chest-stretch/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/chest-stretch/images/1.jpg"
+    ]
+  },
+  {
+    "id": "cat-cow",
+    "name": "Cat-Cow Stretch",
+    "category": "Stretching",
+    "primaryMuscles": [
+      "lower back"
+    ],
+    "secondaryMuscles": [
+      "abdominals",
+      "neck"
+    ],
+    "equipment": "body only",
+    "level": "beginner",
+    "mechanic": "isolation",
+    "instructions": [
+      "Start on hands and knees",
+      "Arch back up (cat), tuck chin",
+      "Then dip belly down (cow), lift head",
+      "Move slowly and breathe",
+      "Great warm-up for spine mobility"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/cat-cow/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/cat-cow/images/1.jpg"
+    ]
+  },
+  {
+    "id": "pigeon-pose",
+    "name": "Pigeon Pose",
+    "category": "Stretching",
+    "primaryMuscles": [
+      "glutes"
+    ],
+    "secondaryMuscles": [
+      "hip flexors",
+      "piriformis"
+    ],
+    "equipment": "body only",
+    "level": "intermediate",
+    "mechanic": "isolation",
+    "instructions": [
+      "From plank, bring one knee toward same-side wrist",
+      "Extend other leg straight back",
+      "Lower hips toward floor",
+      "Hold 1-2 minutes per side",
+      "Best post-workout glute/hip stretch"
+    ],
+    "images": [
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/pigeon-pose/images/0.jpg",
+      "https://raw.githubusercontent.com/wrkout/exercises.json/master/exercises/pigeon-pose/images/1.jpg"
+    ]
+  }
+]
