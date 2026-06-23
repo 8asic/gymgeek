@@ -2,20 +2,21 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import '../services/tflite_service.dart';
+import '../services/detection_service.dart';
 import '../services/equipment_service.dart';
-import '../services/database_helper.dart';
-import '../utils/constants.dart';
+import '../services/database_service.dart';
+import '../utils/app_theme.dart';
+import '../utils/app_constants.dart';
 import 'video_player_screen.dart';
-import 'search_screen.dart';
+import 'equipment_search_screen.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
   @override
-  State<CameraScreen> createState() => _CameraScreenState();
+  State<CameraScreen> createState() => CameraScreenState();
 }
 
-class _CameraScreenState extends State<CameraScreen>
+class CameraScreenState extends State<CameraScreen>
     with WidgetsBindingObserver {
   CameraController? _camCtrl;
   List<CameraDescription> _cameras = [];
@@ -26,6 +27,8 @@ class _CameraScreenState extends State<CameraScreen>
   Timer? _detectionTimer;
   Timer? _noDetectTimer;
   int _secondsWithoutDetect = 0;
+
+  FlashMode _flashMode = FlashMode.off;
 
   double _scanBoxSize = 240;
   static const double _minBox = 100;
@@ -43,7 +46,7 @@ class _CameraScreenState extends State<CameraScreen>
 
   Future<void> _boot() async {
     await EquipmentService().load();
-    await TFLiteService().loadModel();
+    await DetectionService().loadModel();
     final cams = await availableCameras();
     if (cams.isEmpty) {
       if (mounted) setState(() => _statusMsg = 'No camera found on device');
@@ -52,9 +55,14 @@ class _CameraScreenState extends State<CameraScreen>
     _cameras = cams;
     await _startCamera(_cameras.first);
 
+    _startTimers();
+  }
+
+  void _startTimers() {
+    _detectionTimer?.cancel();
+    _noDetectTimer?.cancel();
     _detectionTimer = Timer.periodic(
         const Duration(milliseconds: 2500), (_) => _runDetection());
-
     _noDetectTimer = Timer.periodic(const Duration(seconds: 1), (_) {
       if (!mounted) return;
       if (_result == null || !_result!.detected) {
@@ -71,6 +79,26 @@ class _CameraScreenState extends State<CameraScreen>
     });
   }
 
+  void _stopTimers() {
+    _detectionTimer?.cancel();
+    _noDetectTimer?.cancel();
+    _detectionTimer = null;
+    _noDetectTimer = null;
+  }
+
+  void pause() {
+    _stopTimers();
+    _camCtrl?.dispose();
+    _camCtrl = null;
+    if (mounted) setState(() => _initialized = false);
+  }
+
+  void resume() {
+    if (_cameras.isNotEmpty && mounted) {
+      _startCamera(_cameras.first).then((_) => _startTimers());
+    }
+  }
+
   Future<void> _startCamera(CameraDescription cam) async {
     await _camCtrl?.dispose();
     _camCtrl = CameraController(
@@ -81,11 +109,30 @@ class _CameraScreenState extends State<CameraScreen>
     );
     try {
       await _camCtrl!.initialize();
+      await _camCtrl!.setFlashMode(_flashMode);
       if (mounted) setState(() => _initialized = true);
     } catch (e) {
       if (mounted) setState(() => _statusMsg = 'Camera error: $e');
     }
   }
+
+  Future<void> _toggleFlash() async {
+    final next = switch (_flashMode) {
+      FlashMode.off   => FlashMode.auto,
+      FlashMode.auto  => FlashMode.always,
+      FlashMode.always => FlashMode.off,
+      _               => FlashMode.off,
+    };
+    await _camCtrl?.setFlashMode(next);
+    setState(() => _flashMode = next);
+  }
+
+  IconData get _flashIcon => switch (_flashMode) {
+    FlashMode.off    => Icons.flash_off,
+    FlashMode.auto   => Icons.flash_auto,
+    FlashMode.always => Icons.flash_on,
+    _                => Icons.flash_off,
+  };
 
   Future<void> _runDetection() async {
     if (_processing || !(_camCtrl?.value.isInitialized ?? false)) return;
@@ -93,7 +140,7 @@ class _CameraScreenState extends State<CameraScreen>
     try {
       final xfile = await _camCtrl!.takePicture();
       final bytes = await xfile.readAsBytes();
-      final result = await TFLiteService().detect(Uint8List.fromList(bytes));
+      final result = await DetectionService().detect(Uint8List.fromList(bytes));
       if (!mounted) return;
       setState(() {
         _result = result;
@@ -133,12 +180,12 @@ class _CameraScreenState extends State<CameraScreen>
           borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
       builder: (_) => _ConfidenceSheet(
         result: _result!,
-        topResults: TFLiteService().lastTopResults,
+        topResults: DetectionService().lastTopResults,
         onConfirm: () async {
           Navigator.pop(context);
-          await TFLiteService()
+          await DetectionService()
               .recordFeedback(label: _result!.rawLabel, correct: true);
-          await DatabaseHelper().logAuditEvent(
+          await DatabaseService().logAuditEvent(
             eventType: 'feedback_confirmed',
             details:
                 'label=${_result!.rawLabel} equipment=${_result!.equipment?.name}',
@@ -149,9 +196,9 @@ class _CameraScreenState extends State<CameraScreen>
         },
         onDeny: () async {
           Navigator.pop(context);
-          await TFLiteService()
+          await DetectionService()
               .recordFeedback(label: _result!.rawLabel, correct: false);
-          await DatabaseHelper().logAuditEvent(
+          await DatabaseService().logAuditEvent(
             eventType: 'feedback_denied',
             details:
                 'label=${_result!.rawLabel} equipment=${_result!.equipment?.name}',
@@ -231,12 +278,12 @@ class _CameraScreenState extends State<CameraScreen>
                             fontSize: 20,
                             fontWeight: FontWeight.bold)),
                     Row(children: [
-                      if (!TFLiteService().modelAvailable)
+                      if (!DetectionService().modelAvailable)
                         Container(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 10, vertical: 4),
                           decoration: BoxDecoration(
-                            color: Colors.orange.withOpacity(0.85),
+                            color: Colors.orange.withValues(alpha: 0.85),
                             borderRadius: BorderRadius.circular(8),
                           ),
                           child: const Text('DEMO MODE',
@@ -245,8 +292,24 @@ class _CameraScreenState extends State<CameraScreen>
                                   fontSize: 11,
                                   fontWeight: FontWeight.bold)),
                         ),
+                      const SizedBox(width: 8),
+                      IconButton(
+                        icon: Icon(_flashIcon, color: Colors.white),
+                        tooltip: 'Flash: ${_flashMode.name}',
+                        onPressed: _initialized ? _toggleFlash : null,
+                      ),
+                      // UC-07: manual equipment search
+                      IconButton(
+                        icon: const Icon(Icons.search, color: Colors.white),
+                        tooltip: 'Search equipment by name',
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const EquipmentSearchScreen(standalone: true),
+                          ),
+                        ),
+                      ),
                       if (_cameras.length > 1) ...[
-                        const SizedBox(width: 8),
                         IconButton(
                           icon: const Icon(Icons.flip_camera_ios,
                               color: Colors.white),
@@ -295,7 +358,7 @@ class _CameraScreenState extends State<CameraScreen>
             child: Center(
               child: Text('Pinch to resize frame',
                   style: TextStyle(
-                      color: Colors.white.withOpacity(0.45),
+                      color: Colors.white.withValues(alpha: 0.45),
                       fontSize: 11)),
             ),
           ),
@@ -309,7 +372,7 @@ class _CameraScreenState extends State<CameraScreen>
                   begin: Alignment.bottomCenter,
                   end: Alignment.topCenter,
                   colors: [
-                    Colors.black.withOpacity(0.95),
+                    Colors.black.withValues(alpha: 0.95),
                     Colors.transparent
                   ],
                 ),
@@ -349,7 +412,7 @@ class _CameraScreenState extends State<CameraScreen>
                         context,
                         MaterialPageRoute(
                             builder: (_) =>
-                                const SearchScreen(standalone: true)),
+                                const EquipmentSearchScreen(standalone: true)),
                       ),
                       icon: const Icon(Icons.search,
                           color: Colors.white60, size: 18),
@@ -390,7 +453,7 @@ class _DetectionCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.card,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.primary.withOpacity(0.4)),
+        border: Border.all(color: AppColors.primary.withValues(alpha: 0.4)),
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(children: [
@@ -429,9 +492,9 @@ class _DetectionCard extends StatelessWidget {
               padding: const EdgeInsets.symmetric(
                   horizontal: 10, vertical: 6),
               decoration: BoxDecoration(
-                color: confColor.withOpacity(0.15),
+                color: confColor.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(10),
-                border: Border.all(color: confColor.withOpacity(0.5)),
+                border: Border.all(color: confColor.withValues(alpha: 0.5)),
               ),
               child: Column(children: [
                 Text('$pct%',
@@ -441,7 +504,7 @@ class _DetectionCard extends StatelessWidget {
                         fontWeight: FontWeight.bold)),
                 Text('details',
                     style: TextStyle(
-                        color: confColor.withOpacity(0.7), fontSize: 9)),
+                        color: confColor.withValues(alpha: 0.7), fontSize: 9)),
               ]),
             ),
           ),

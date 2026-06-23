@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'utils/constants.dart';
+import 'utils/app_theme.dart';
 import 'screens/login_screen.dart';
 import 'screens/home_shell.dart';
 import 'services/equipment_service.dart';
 import 'services/exercise_service.dart';
-import 'services/tflite_service.dart';
-import 'services/llm_service.dart';
+import 'services/detection_service.dart';
+import 'services/research_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,8 +15,8 @@ Future<void> main() async {
   await Future.wait([
     EquipmentService().load(),
     ExerciseService().load(),
-    TFLiteService().loadModel(),
-    LLMService().loadResearchBase(),
+    DetectionService().loadModel(),
+    ResearchService().loadResearchBase(),
   ]);
 
   runApp(const GymGeekApp());

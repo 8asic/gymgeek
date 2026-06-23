@@ -62,5 +62,101 @@
     "year": 2003,
     "abstract": "A proper warm-up lasting 10-15 minutes improves exercise performance by raising core temperature, increasing muscle blood flow, and activating the neuromuscular system. General warm-up (light cardio 5 min) followed by specific warm-up (lighter sets of target exercises) is the gold standard. Cold muscles are more susceptible to strains and tears.",
     "keywords": ["warm up", "warmup", "injury prevention", "performance", "preparation"]
+  },
+  {
+    "id": "r9",
+    "title": "Rest Interval Optimization Between Sets",
+    "authors": ["de Salles, B.F.", "Simao, R.", "Miranda, F."],
+    "year": 2009,
+    "abstract": "Rest intervals between sets significantly affect training outcomes. Short rest periods (30-60s) maximize metabolic stress and growth hormone release. Longer rest periods (3-5 minutes) are required for full ATP-PC system recovery and maximal strength performance. For hypertrophy, 60-90 second rest intervals offer the best compromise between volume capacity and hormonal response.",
+    "keywords": ["rest intervals", "rest between sets", "recovery", "hypertrophy", "strength"]
+  },
+  {
+    "id": "r10",
+    "title": "Training Volume, Frequency, and Muscle Adaptations",
+    "authors": ["Schoenfeld, B.J.", "Ogborn, D.", "Krieger, J.W."],
+    "year": 2017,
+    "abstract": "Training frequency of 2 times per week per muscle group produces superior hypertrophy compared to once per week at equal volume. Weekly training volume of 10-20 sets per muscle group is the evidence-based recommendation for most individuals. Higher frequencies allow for better volume distribution and reduced per-session fatigue. Novice trainees respond well to 3x full-body splits while advanced lifters may benefit from 4-6 day splits.",
+    "keywords": ["training volume", "frequency", "muscle growth", "sets per week", "training split"]
+  },
+  {
+    "id": "r11",
+    "title": "Mind-Muscle Connection and Muscular Activation",
+    "authors": ["Calatayud, J.", "Vinstrup, J.", "Jakobsen, M.D."],
+    "year": 2016,
+    "abstract": "Deliberately focusing on the target muscle during resistance training — the mind-muscle connection — significantly increases electromyographic (EMG) activity and may enhance hypertrophic gains. Focusing on squeezing the muscle at peak contraction improved activation by 20-30% in several studies. This effect is most pronounced with light to moderate loads and isolation exercises.",
+    "keywords": ["mind muscle connection", "muscle activation", "EMG", "focus", "contraction"]
+  },
+  {
+    "id": "r12",
+    "title": "Deload Weeks and Long-Term Training Adaptation",
+    "authors": ["Zourdos, M.C.", "Klemp, A.", "Dolan, C."],
+    "year": 2016,
+    "abstract": "Planned deload periods — typically 1 week every 4-8 weeks of reduced volume or intensity — allow accumulated fatigue to dissipate while fitness adaptations are retained. Supercompensation theory predicts performance improvements following a deload. Athletes who skip deloads are more prone to overreaching, plateaus, and injury. Deloads do not require complete rest; 50% volume reduction at the same intensity is effective.",
+    "keywords": ["deload", "recovery week", "overtraining", "periodization", "rest week"]
+  },
+  {
+    "id": "r13",
+    "title": "Body Composition vs Scale Weight in Fitness Assessment",
+    "authors": ["Heyward, V.H.", "Wagner, D.R."],
+    "year": 2004,
+    "abstract": "Body composition (fat mass vs fat-free mass ratio) is a more meaningful health metric than total scale weight. It is possible to simultaneously gain muscle and lose fat ('body recomposition') especially in beginners and individuals returning from a break. DEXA scanning, hydrostatic weighing, and validated skinfold methods provide accurate body composition measurements. Scale weight alone misrepresents progress during recomposition phases.",
+    "keywords": ["body composition", "fat loss", "muscle gain", "recomposition", "body fat"]
+  },
+  {
+    "id": "r14",
+    "title": "Functional Training and Athletic Performance",
+    "authors": ["Behm, D.G.", "Sale, D.G."],
+    "year": 1993,
+    "abstract": "Functional training using multi-planar, compound movements produces greater transfer to sport and daily activities than machine-based isolation exercises. Training with free weights and unstable surfaces increases core muscle recruitment and neuromuscular coordination. Exercises like squats, deadlifts, lunges, and cable rotations mimic real-world movement patterns. Functional training is especially beneficial for injury rehabilitation and athletic performance.",
+    "keywords": ["functional training", "compound movements", "athletic performance", "free weights", "sport"]
+  },
+  {
+    "id": "r15",
+    "title": "Foam Rolling and Myofascial Release Effects",
+    "authors": ["Cheatham, S.W.", "Kolber, M.J.", "Cain, M."],
+    "year": 2015,
+    "abstract": "Foam rolling (self-myofascial release) pre-exercise reduces muscle soreness and stiffness without impairing subsequent performance — unlike static stretching. Post-exercise foam rolling significantly reduces delayed onset muscle soreness (DOMS) at 24-72 hours following training. Rolling duration of 1-2 minutes per muscle group at slow pace (1 inch/second) maximizes tissue response. Consistent use improves overall range of motion over time.",
+    "keywords": ["foam rolling", "myofascial release", "DOMS", "recovery", "muscle soreness", "flexibility"]
+  },
+  {
+    "id": "r16",
+    "title": "Creatine Monohydrate Supplementation and Exercise",
+    "authors": ["Kreider, R.B.", "Kalman, D.S.", "Antonio, J."],
+    "year": 2017,
+    "abstract": "Creatine monohydrate is the most evidence-backed sports supplement, consistently improving strength, power, and lean mass in resistance training. Daily doses of 3-5g maintain elevated phosphocreatine stores without a loading phase. Benefits are greatest in explosive, high-intensity, short-duration activities. Creatine is safe for long-term use in healthy adults and does not cause kidney damage when hydration is adequate.",
+    "keywords": ["creatine", "supplementation", "strength", "power", "muscle mass", "sports nutrition"]
+  },
+  {
+    "id": "r17",
+    "title": "Caffeine as an Ergogenic Aid in Exercise",
+    "authors": ["Grgic, J.", "Grgic, I.", "Pickering, C."],
+    "year": 2020,
+    "abstract": "Caffeine (3-6 mg/kg bodyweight) taken 30-60 minutes before exercise significantly improves endurance performance, muscular strength, and power output. Mechanisms include adenosine receptor antagonism reducing perceived exertion and direct stimulation of the central nervous system. Tolerance develops with regular use; cycling caffeine intake (periodic abstinence) preserves ergogenic effects. Coffee is as effective as anhydrous caffeine for performance enhancement.",
+    "keywords": ["caffeine", "pre workout", "performance", "energy", "endurance", "strength"]
+  },
+  {
+    "id": "r18",
+    "title": "Hydration Status and Athletic Performance",
+    "authors": ["Sawka, M.N.", "Burke, L.M.", "Eichner, E.R."],
+    "year": 2007,
+    "abstract": "Even mild dehydration (2% body weight loss) reduces aerobic performance by up to 10% and impairs cognitive function. Sweat rates during exercise can reach 1-2 liters per hour requiring active fluid replacement. Sports drinks containing electrolytes (sodium, potassium) are beneficial for sessions exceeding 60 minutes. Pre-exercise hydration: 5-7 ml/kg bodyweight 4 hours before exercise. Urine color (pale yellow) is a reliable hydration indicator.",
+    "keywords": ["hydration", "water", "electrolytes", "performance", "dehydration", "sports drink"]
+  },
+  {
+    "id": "r19",
+    "title": "Concurrent Training: Cardio and Muscle Retention",
+    "authors": ["Wilson, J.M.", "Marin, P.J.", "Rhea, M.R."],
+    "year": 2012,
+    "abstract": "The 'interference effect' describes how excessive endurance training can blunt strength and muscle gains when combined with resistance training. Molecular signaling pathways (AMPK vs mTOR) are partly antagonistic. Optimal concurrent training separates resistance and cardio sessions by at least 6 hours, or places cardio after weights. Low-impact modalities (cycling, swimming) cause less interference than running. 2-3 cardio sessions per week of moderate intensity are compatible with muscle growth goals.",
+    "keywords": ["concurrent training", "cardio", "muscle retention", "interference effect", "endurance", "strength"]
+  },
+  {
+    "id": "r20",
+    "title": "Exercise Order Effects on Strength and Hypertrophy",
+    "authors": ["Simao, R.", "de Salles, B.F.", "Figueiredo, T."],
+    "year": 2012,
+    "abstract": "Performing compound multi-joint exercises (squats, deadlifts, bench press) before isolation exercises maximizes strength performance on priority muscles. The exercise performed first in a session receives the greatest neuromuscular stimulus before fatigue accumulates. For hypertrophy goals, pre-fatiguing with isolation before compound can increase motor unit recruitment. General recommendation: large muscle groups before small, compound before isolation, higher intensity before lower intensity.",
+    "keywords": ["exercise order", "training order", "compound exercises", "isolation", "workout structure"]
   }
 ]

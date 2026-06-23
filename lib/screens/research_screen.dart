@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../services/llm_service.dart';
-import '../utils/constants.dart';
+import '../services/research_service.dart';
+import '../utils/app_theme.dart';
 
 class ResearchScreen extends StatefulWidget {
   const ResearchScreen({super.key});
@@ -26,7 +26,7 @@ class _ResearchScreenState extends State<ResearchScreen> {
   Future<void> _search(String query) async {
     if (query.trim().isEmpty) return;
     setState(() { _loading = true; _result = null; });
-    final result = await LLMService().summarise(query);
+    final result = await ResearchService().summarise(query);
     if (mounted) setState(() { _result = result; _loading = false; });
   }
 
@@ -119,7 +119,7 @@ class _ResearchScreenState extends State<ResearchScreen> {
                     Text('Retrieving research & generating summary...',
                         style: TextStyle(color: AppColors.textSecondary)),
                     SizedBox(height: 6),
-                    Text('(Powered by Ollama + Llama 3)',
+                    Text('(Powered by Gemini 1.5 Flash)',
                         style: TextStyle(color: AppColors.textSecondary, fontSize: 12)),
                   ],
                 ),
@@ -140,9 +140,9 @@ class _ResearchScreenState extends State<ResearchScreen> {
                         padding: const EdgeInsets.all(12),
                         margin: const EdgeInsets.only(bottom: 16),
                         decoration: BoxDecoration(
-                          color: Colors.orange.withOpacity(0.15),
+                          color: Colors.orange.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.orange.withOpacity(0.4)),
+                          border: Border.all(color: Colors.orange.withValues(alpha: 0.4)),
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,

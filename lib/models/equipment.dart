@@ -7,6 +7,8 @@ class Equipment {
   final String videoUrl;
   final List<String> tips;
   final List<String> labels;
+  // UC-03 alternative: multiple instructional videos per equipment
+  final List<Map<String, String>> videos;
 
   Equipment({
     required this.id,
@@ -17,18 +19,27 @@ class Equipment {
     required this.videoUrl,
     required this.tips,
     required this.labels,
-  });
+    List<Map<String, String>>? videos,
+  }) : videos = videos ?? [{'title': 'Instructional Video', 'url': videoUrl}];
 
   factory Equipment.fromJson(Map<String, dynamic> json) {
+    final primaryUrl = json['videoUrl'] as String;
+    final rawVideos = json['videos'] as List?;
+    final videoList = rawVideos != null
+        ? rawVideos
+            .map((v) => Map<String, String>.from(v as Map))
+            .toList()
+        : <Map<String, String>>[{'title': 'Instructional Video', 'url': primaryUrl}];
     return Equipment(
       id: json['id'] as String,
       name: json['name'] as String,
       description: json['description'] as String,
       muscleGroup: json['muscleGroup'] as String,
       difficultyLevel: json['difficultyLevel'] as String,
-      videoUrl: json['videoUrl'] as String,
+      videoUrl: primaryUrl,
       tips: List<String>.from(json['tips'] as List),
       labels: List<String>.from(json['labels'] as List),
+      videos: videoList,
     );
   }
 
@@ -41,6 +52,7 @@ class Equipment {
         'videoUrl': videoUrl,
         'tips': tips,
         'labels': labels,
+        'videos': videos,
       };
 
   /// Muscle group icon

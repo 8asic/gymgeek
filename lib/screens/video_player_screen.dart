@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../models/equipment.dart';
-import '../models/workout.dart';
-import '../services/database_helper.dart';
-import '../utils/constants.dart';
+import '../models/workout_session.dart';
+import '../services/database_service.dart';
+import '../utils/app_theme.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final Equipment equipment;
@@ -18,12 +18,15 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   bool _workoutSaved = false;
   int _selectedDuration = 30;
   final _notesCtrl = TextEditingController();
+  // UC-03: index of currently selected instructional video
+  int _selectedVideoIndex = 0;
 
   Equipment get eq => widget.equipment;
 
-  Future<void> _openVideo() async {
-    final uri = Uri.parse(eq.videoUrl);
-    // Try YouTube app first, fall back to in-app browser
+  Future<void> _openVideo([int? index]) async {
+    final idx = index ?? _selectedVideoIndex;
+    final urlStr = eq.videos.isNotEmpty ? eq.videos[idx]['url']! : eq.videoUrl;
+    final uri = Uri.parse(urlStr);
     bool launched = false;
     try {
       launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
@@ -35,17 +38,72 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     }
     if (!launched && mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Opening: ${eq.videoUrl}'),
-          action: SnackBarAction(
-            label: 'Copy',
-            onPressed: () {
-              // At minimum show the URL so user can copy it manually
-            },
-          ),
-        ),
+        SnackBar(content: Text('Could not open video: $urlStr')),
       );
     }
+  }
+
+  /// UC-03 alternative: show bottom sheet when multiple videos available
+  void _pickVideo(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: const Color(0xFF1E1E1E),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Padding(
+            padding: EdgeInsets.fromLTRB(20, 16, 20, 8),
+            child: Text(
+              'Choose Video',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          ...eq.videos.asMap().entries.map((entry) {
+            final i = entry.key;
+            final v = entry.value;
+            final selected = i == _selectedVideoIndex;
+            return ListTile(
+              leading: Container(
+                width: 40, height: 40,
+                decoration: BoxDecoration(
+                  color: selected
+                      ? AppColors.primary.withValues(alpha: 0.2)
+                      : AppColors.card,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  Icons.play_circle_outline,
+                  color: selected ? AppColors.primary : AppColors.textSecondary,
+                ),
+              ),
+              title: Text(
+                v['title'] ?? 'Video ${i + 1}',
+                style: TextStyle(
+                  color: selected ? AppColors.primary : Colors.white,
+                  fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                ),
+              ),
+              trailing: selected
+                  ? const Icon(Icons.check, color: AppColors.primary)
+                  : null,
+              onTap: () {
+                Navigator.pop(context);
+                setState(() => _selectedVideoIndex = i);
+                _openVideo(i);
+              },
+            );
+          }),
+          const SizedBox(height: 12),
+        ],
+      ),
+    );
   }
 
   Future<void> _saveWorkout() async {
@@ -56,8 +114,8 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       notes: _notesCtrl.text.trim(),
       timestamp: DateTime.now(),
     );
-    await DatabaseHelper().insertWorkout(session);
-    await DatabaseHelper().logAuditEvent(
+    await DatabaseService().insertWorkout(session);
+    await DatabaseService().logAuditEvent(
       eventType: 'workout_logged',
       details: 'equipment=${eq.name} duration=${_selectedDuration}min',
     );
@@ -143,13 +201,43 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
             ),
             const SizedBox(height: 20),
 
-            // Instructional video button — UC-03
-            const Text('Instructional Video',
-                style: TextStyle(color: AppColors.textPrimary,
-                    fontSize: 17, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 10),
+            // Instructional video — UC-03 (multi-video alternative scenario)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  eq.videos.length > 1
+                      ? 'Instructional Videos (${eq.videos.length})'
+                      : 'Instructional Video',
+                  style: const TextStyle(
+                      color: AppColors.textPrimary,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold),
+                ),
+                if (eq.videos.length > 1)
+                  TextButton.icon(
+                    onPressed: () => _pickVideo(context),
+                    icon: const Icon(Icons.list, size: 14),
+                    label: const Text('Choose'),
+                    style: TextButton.styleFrom(
+                        foregroundColor: AppColors.primary),
+                  ),
+              ],
+            ),
+            if (eq.videos.length > 1)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  'Playing: ${eq.videos[_selectedVideoIndex]['title']}',
+                  style: const TextStyle(
+                      color: AppColors.textSecondary, fontSize: 13),
+                ),
+              ),
+            const SizedBox(height: 6),
             GestureDetector(
-              onTap: _openVideo,
+              onTap: eq.videos.length > 1
+                  ? () => _pickVideo(context)
+                  : _openVideo,
               child: Container(
                 height: 180,
                 decoration: BoxDecoration(
@@ -160,7 +248,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
-                    // Placeholder thumbnail
                     ClipRRect(
                       borderRadius: BorderRadius.circular(13),
                       child: Container(
@@ -171,30 +258,44 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
                         ),
                       ),
                     ),
-                    // Play button
                     Container(
                       width: 64, height: 64,
-                      decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.9),
+                      decoration: const BoxDecoration(
+                        color: AppColors.primary,
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(Icons.play_arrow, color: Colors.white, size: 36),
+                      child: Icon(
+                        eq.videos.length > 1
+                            ? Icons.video_library
+                            : Icons.play_arrow,
+                        color: Colors.white,
+                        size: 36,
+                      ),
                     ),
-                    // YouTube badge
                     Positioned(
                       bottom: 12, right: 12,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 4),
                         decoration: BoxDecoration(
-                          color: Colors.red,
+                          color: eq.videos.length > 1
+                              ? AppColors.primary
+                              : Colors.red,
                           borderRadius: BorderRadius.circular(6),
                         ),
-                        child: const Row(
+                        child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(Icons.play_circle_fill, color: Colors.white, size: 14),
-                            SizedBox(width: 4),
-                            Text('YouTube', style: TextStyle(color: Colors.white, fontSize: 11)),
+                            const Icon(Icons.play_circle_fill,
+                                color: Colors.white, size: 14),
+                            const SizedBox(width: 4),
+                            Text(
+                              eq.videos.length > 1
+                                  ? '${eq.videos.length} videos'
+                                  : 'YouTube',
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 11),
+                            ),
                           ],
                         ),
                       ),

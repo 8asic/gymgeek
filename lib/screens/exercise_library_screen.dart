@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/exercise.dart';
 import '../services/exercise_service.dart';
-import '../utils/constants.dart';
+import '../utils/app_theme.dart';
 import 'exercise_detail_screen.dart';
 
 class ExerciseLibraryScreen extends StatefulWidget {
@@ -31,6 +31,8 @@ class _ExerciseLibraryScreenState extends State<ExerciseLibraryScreen>
   List<Exercise> _results = [];
   Map<String, List<Exercise>> _byMuscle = {};
   bool _loaded = false;
+  // UC-07 exception: fuzzy suggestion when query returns no results
+  String? _suggestion;
 
   static const _muscleOrder = [
     'chest', 'lats', 'middle back', 'lower back',
@@ -65,14 +67,55 @@ class _ExerciseLibraryScreenState extends State<ExerciseLibraryScreen>
   }
 
   void _refresh() {
+    final results = ExerciseService().search(
+      query: _query,
+      muscle: _selectedMuscle,
+      equipment: _selectedEquipment,
+      level: _selectedLevel,
+    );
     setState(() {
-      _results = ExerciseService().search(
-        query: _query,
-        muscle: _selectedMuscle,
-        equipment: _selectedEquipment,
-        level: _selectedLevel,
-      );
+      _results = results;
+      _suggestion = (results.isEmpty && _query.isNotEmpty)
+          ? _findSuggestion(_query)
+          : null;
     });
+  }
+
+  /// UC-07 exception scenario: "Did you mean [X]?" when search returns nothing.
+  String? _findSuggestion(String query) {
+    final q = query.toLowerCase().trim();
+    if (q.isEmpty) return null;
+    String? best;
+    int bestDist = 999;
+    for (final e in ExerciseService().all) {
+      final name = e.name.toLowerCase();
+      // Check full name distance and each individual word distance
+      for (final token in [name, ...name.split(' ')]) {
+        final d = _editDistance(q, token);
+        // Threshold: allow up to 40% of query length in edits
+        if (d < bestDist && d <= (q.length * 0.5).ceil()) {
+          bestDist = d;
+          best = e.name;
+        }
+      }
+    }
+    return best;
+  }
+
+  int _editDistance(String s, String t) {
+    final m = s.length, n = t.length;
+    final d = List.generate(m + 1, (_) => List.filled(n + 1, 0));
+    for (var i = 0; i <= m; i++) { d[i][0] = i; }
+    for (var j = 0; j <= n; j++) { d[0][j] = j; }
+    for (var i = 1; i <= m; i++) {
+      for (var j = 1; j <= n; j++) {
+        d[i][j] = s[i - 1] == t[j - 1]
+            ? d[i - 1][j - 1]
+            : 1 + [d[i - 1][j], d[i][j - 1], d[i - 1][j - 1]]
+                .reduce((a, b) => a < b ? a : b);
+      }
+    }
+    return d[m][n];
   }
 
   void _clearFilters() {
@@ -154,15 +197,56 @@ class _ExerciseLibraryScreenState extends State<ExerciseLibraryScreen>
           ),
         Expanded(
           child: _results.isEmpty
-              ? const Center(
+              ? Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.fitness_center,
+                      const Icon(Icons.fitness_center,
                           color: AppColors.textSecondary, size: 48),
-                      SizedBox(height: 12),
-                      Text('No exercises found',
+                      const SizedBox(height: 12),
+                      const Text('No exercises found',
                           style: TextStyle(color: AppColors.textSecondary)),
+                      if (_suggestion != null) ...[
+                        const SizedBox(height: 16),
+                        GestureDetector(
+                          onTap: () {
+                            _searchCtrl.text = _suggestion!;
+                            _query = _suggestion!;
+                            _refresh();
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 10),
+                            decoration: BoxDecoration(
+                              color: AppColors.card,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(Icons.search,
+                                    color: AppColors.primary, size: 16),
+                                const SizedBox(width: 8),
+                                Text.rich(TextSpan(
+                                  style: const TextStyle(
+                                      color: AppColors.textSecondary,
+                                      fontSize: 14),
+                                  children: [
+                                    const TextSpan(text: 'Did you mean: '),
+                                    TextSpan(
+                                      text: _suggestion,
+                                      style: const TextStyle(
+                                          color: AppColors.primary,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const TextSpan(text: '?'),
+                                  ],
+                                )),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
                     ],
                   ),
                 )
@@ -357,7 +441,7 @@ class _ExerciseCard extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 7, vertical: 2),
                         decoration: BoxDecoration(
-                          color: e.levelColor.withOpacity(0.15),
+                          color: e.levelColor.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(5),
                         ),
                         child: Text(e.level,
@@ -552,7 +636,7 @@ class _FilterDropdown extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         decoration: BoxDecoration(
-          color: active ? AppColors.primary.withOpacity(0.15) : AppColors.card,
+          color: active ? AppColors.primary.withValues(alpha: 0.15) : AppColors.card,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
             color: active ? AppColors.primary : AppColors.cardLight,

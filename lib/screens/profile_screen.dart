@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/goal.dart';
-import '../services/database_helper.dart';
+import '../services/database_service.dart';
 import '../services/equipment_service.dart';
 import '../models/equipment.dart';
-import '../utils/constants.dart';
+import '../utils/app_theme.dart';
 import '../widgets/equipment_card.dart';
 import 'video_player_screen.dart';
 import 'login_screen.dart';
@@ -34,7 +34,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Future<void> _load() async {
     final prefs = await SharedPreferences.getInstance();
-    final db = DatabaseHelper();
+    final db = DatabaseService();
     final goal = await db.getCurrentGoal();
     final aiRec = await db.getSetting('ai_recommendations') ?? 'true';
     final gdpr = await db.getSetting('gdpr_consent') ?? 'true';
@@ -60,19 +60,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Future<void> _saveGoal(GoalType type) async {
     // Tapping the already-selected goal unselects it
     if (_currentGoal?.goalType == type) {
-      await DatabaseHelper().deleteAllGoals();
-      await DatabaseHelper().logAuditEvent(
+      await DatabaseService().deleteAllGoals();
+      await DatabaseService().logAuditEvent(
           eventType: 'goal_cleared', details: 'type=${type.name}');
       await _load();
       _showSnack('Goal cleared');
       return;
     }
     final goal = FitnessGoal(goalType: type, startDate: DateTime.now());
-    await DatabaseHelper().insertGoal(goal);
-    await DatabaseHelper().logAuditEvent(
-        eventType: 'goal_set', details: 'type=${type.name}');
-    await _load();
-    _showSnack('Goal set: ${type.label} ${type.icon}', color: AppColors.success);
+    try {
+      await DatabaseService().insertGoal(goal);
+      await DatabaseService().logAuditEvent(
+          eventType: 'goal_set', details: 'type=${type.name}');
+      await _load();
+      _showSnack('Goals saved successfully', color: AppColors.success);
+    } catch (_) {
+      if (mounted) {
+        _showSnack('Failed to save goals. Please try again.', color: Colors.red);
+      }
+    }
   }
 
   void _showSnack(String msg, {Color? color}) {
@@ -86,12 +92,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Future<void> _setAiRecommendations(bool val) async {
-    await DatabaseHelper().setSetting('ai_recommendations', val.toString());
+    await DatabaseService().setSetting('ai_recommendations', val.toString());
     setState(() => _aiRecommendations = val);
   }
 
   Future<void> _setGdprConsent(bool val) async {
-    await DatabaseHelper().setSetting('gdpr_consent', val.toString());
+    await DatabaseService().setSetting('gdpr_consent', val.toString());
     setState(() => _gdprConsent = val);
   }
 
@@ -119,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
     if (confirmed == true) {
-      await DatabaseHelper().deleteAllUserData();
+      await DatabaseService().deleteAllUserData();
       if (mounted) {
         _showSnack('All data deleted (GDPR compliant)');
         _load();
@@ -221,7 +227,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             margin: const EdgeInsets.only(bottom: 8),
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: selected ? AppColors.primary.withOpacity(0.15) : AppColors.card,
+              color: selected ? AppColors.primary.withValues(alpha: 0.15) : AppColors.card,
               borderRadius: BorderRadius.circular(12),
               border: selected
                   ? Border.all(color: AppColors.primary, width: 1.5)
@@ -307,7 +313,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SwitchListTile(
             value: _aiRecommendations,
             onChanged: _setAiRecommendations,
-            activeColor: AppColors.primary,
+            activeThumbColor: AppColors.primary,
             title: const Text('AI Recommendations',
                 style: TextStyle(color: AppColors.textPrimary)),
             subtitle: const Text('Personalised equipment suggestions based on your goal',
@@ -317,7 +323,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           SwitchListTile(
             value: _gdprConsent,
             onChanged: _setGdprConsent,
-            activeColor: AppColors.primary,
+            activeThumbColor: AppColors.primary,
             title: const Text('Data Storage Consent (GDPR)',
                 style: TextStyle(color: AppColors.textPrimary)),
             subtitle: const Text('Store workout history and goals locally on your device',

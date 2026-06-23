@@ -6,6 +6,10 @@
     "muscleGroup": "Cardio",
     "difficultyLevel": "Beginner",
     "videoUrl": "https://www.youtube.com/watch?v=vHSaAGbmHxA",
+    "videos": [
+      {"title": "Treadmill Basics for Beginners", "url": "https://www.youtube.com/watch?v=vHSaAGbmHxA"},
+      {"title": "Treadmill Running Form & Tips", "url": "https://www.youtube.com/watch?v=FIPXuFX3kUk"}
+    ],
     "tips": ["Start at low speed", "Maintain upright posture", "Hold rails only if necessary"],
     "labels": ["treadmill", "running machine"]
   },
@@ -16,8 +20,12 @@
     "muscleGroup": "Legs",
     "difficultyLevel": "Intermediate",
     "videoUrl": "https://www.youtube.com/watch?v=IZxyjW7MPJQ",
+    "videos": [
+      {"title": "Leg Press Proper Form", "url": "https://www.youtube.com/watch?v=IZxyjW7MPJQ"},
+      {"title": "Leg Press Variations & Foot Placement", "url": "https://www.youtube.com/watch?v=yZmx_Ac3880"}
+    ],
     "tips": ["Don't lock your knees", "Keep your back flat", "Control the descent"],
-    "labels": ["leg press", "leg machine"]
+    "labels": ["leg press", "leg machine", "leg-press"]
   },
   {
     "id": "3",
@@ -26,8 +34,12 @@
     "muscleGroup": "Chest",
     "difficultyLevel": "Intermediate",
     "videoUrl": "https://www.youtube.com/watch?v=SCVCLChPQEs",
+    "videos": [
+      {"title": "Bench Press Proper Form", "url": "https://www.youtube.com/watch?v=SCVCLChPQEs"},
+      {"title": "Bench Press - Common Mistakes", "url": "https://www.youtube.com/watch?v=BYKScL2sgCs"}
+    ],
     "tips": ["Always use a spotter", "Keep feet flat on floor", "Control the bar path"],
-    "labels": ["bench press", "chest press", "barbell bench"]
+    "labels": ["bench press", "chest press", "barbell bench", "bench-press", "chest-press", "incline-bench"]
   },
   {
     "id": "4",
@@ -36,6 +48,10 @@
     "muscleGroup": "Back",
     "difficultyLevel": "Intermediate",
     "videoUrl": "https://www.youtube.com/watch?v=eGo4IYlbE5g",
+    "videos": [
+      {"title": "How to Do a Pull-Up", "url": "https://www.youtube.com/watch?v=eGo4IYlbE5g"},
+      {"title": "Pull-Up Progressions for Beginners", "url": "https://www.youtube.com/watch?v=qrl-6XSQIXQ"}
+    ],
     "tips": ["Full dead hang at bottom", "Pull elbows to ribs", "Cross feet for stability"],
     "labels": ["pull-up bar", "chin-up bar", "pull up"]
   },
@@ -46,6 +62,10 @@
     "muscleGroup": "Full Body",
     "difficultyLevel": "Intermediate",
     "videoUrl": "https://www.youtube.com/watch?v=H0r_Z-JEFlg",
+    "videos": [
+      {"title": "Rowing Machine Technique", "url": "https://www.youtube.com/watch?v=H0r_Z-JEFlg"},
+      {"title": "Rowing Machine Workout for Beginners", "url": "https://www.youtube.com/watch?v=_B2YAn5HIIE"}
+    ],
     "tips": ["Drive with legs first", "Lean back slightly at finish", "Keep strokes smooth"],
     "labels": ["rowing machine", "rower", "ergometer"]
   },
@@ -56,8 +76,12 @@
     "muscleGroup": "Back",
     "difficultyLevel": "Beginner",
     "videoUrl": "https://www.youtube.com/watch?v=CAwf7n6Luuc",
+    "videos": [
+      {"title": "Lat Pulldown Proper Form", "url": "https://www.youtube.com/watch?v=CAwf7n6Luuc"},
+      {"title": "Lat Pulldown Variations", "url": "https://www.youtube.com/watch?v=lueEJGjTuMQ"}
+    ],
     "tips": ["Pull to upper chest", "Lean back slightly", "Squeeze shoulder blades"],
-    "labels": ["lat pulldown", "cable pulldown", "lat machine"]
+    "labels": ["lat pulldown", "cable pulldown", "lat machine", "lat-pulldown", "cable-lat-pulldown"]
   },
   {
     "id": "7",
@@ -66,6 +90,9 @@
     "muscleGroup": "Full Body",
     "difficultyLevel": "Beginner",
     "videoUrl": "https://www.youtube.com/watch?v=VAzDPl0eGiM",
+    "videos": [
+      {"title": "Dumbbell Exercises for Beginners", "url": "https://www.youtube.com/watch?v=VAzDPl0eGiM"}
+    ],
     "tips": ["Choose appropriate weight", "Return weights after use", "Use collars on barbells"],
     "labels": ["dumbbell", "dumbbells", "free weights", "dumbbell rack"]
   },
@@ -76,6 +103,10 @@
     "muscleGroup": "Cardio",
     "difficultyLevel": "Beginner",
     "videoUrl": "https://www.youtube.com/watch?v=_nt9C0yZfLo",
+    "videos": [
+      {"title": "Stationary Bike Workout Guide", "url": "https://www.youtube.com/watch?v=_nt9C0yZfLo"},
+      {"title": "Indoor Cycling HIIT Workout", "url": "https://www.youtube.com/watch?v=6FGzke-lrT8"}
+    ],
     "tips": ["Adjust seat height", "Maintain 80-100 RPM", "Keep core engaged"],
     "labels": ["stationary bike", "exercise bike", "spin bike", "cycling machine"]
   },
@@ -86,8 +117,12 @@
     "muscleGroup": "Full Body",
     "difficultyLevel": "Intermediate",
     "videoUrl": "https://www.youtube.com/watch?v=8rGMDMXFkus",
+    "videos": [
+      {"title": "Cable Machine Full Body Workout", "url": "https://www.youtube.com/watch?v=8rGMDMXFkus"},
+      {"title": "Cable Machine Exercises Guide", "url": "https://www.youtube.com/watch?v=oLwTC-lAJws"}
+    ],
     "tips": ["Adjust pulley height", "Stand in athletic stance", "Control through full range"],
-    "labels": ["cable machine", "cable tower", "pulley machine"]
+    "labels": ["cable machine", "cable tower", "pulley machine", "pulley-machine", "seated-cable-row", "back-row-machine", "arm-extension"]
   },
   {
     "id": "10",
@@ -96,8 +131,12 @@
     "muscleGroup": "Full Body",
     "difficultyLevel": "Beginner",
     "videoUrl": "https://www.youtube.com/watch?v=pI7QVnYSGp8",
+    "videos": [
+      {"title": "Smith Machine Squat Tutorial", "url": "https://www.youtube.com/watch?v=pI7QVnYSGp8"},
+      {"title": "Smith Machine Bench Press Tutorial", "url": "https://www.youtube.com/watch?v=tqSXqLPCrpk"}
+    ],
     "tips": ["Set safety stops", "Warm up before loading", "Don't rely on it exclusively"],
-    "labels": ["smith machine", "guided barbell"]
+    "labels": ["smith machine", "guided barbell", "smith-machine"]
   },
   {
     "id": "11",
@@ -106,6 +145,9 @@
     "muscleGroup": "Cardio",
     "difficultyLevel": "Beginner",
     "videoUrl": "https://www.youtube.com/watch?v=Mq49UGdSMWY",
+    "videos": [
+      {"title": "Elliptical Machine Workout Tips", "url": "https://www.youtube.com/watch?v=Mq49UGdSMWY"}
+    ],
     "tips": ["Keep weight in heels", "Use arm handles", "Maintain upright posture"],
     "labels": ["elliptical", "cross trainer", "elliptical trainer"]
   },
@@ -116,7 +158,258 @@
     "muscleGroup": "Legs",
     "difficultyLevel": "Advanced",
     "videoUrl": "https://www.youtube.com/watch?v=ultWZbUMPL8",
+    "videos": [
+      {"title": "Barbell Back Squat Form", "url": "https://www.youtube.com/watch?v=ultWZbUMPL8"},
+      {"title": "Squat Rack Safety & Setup", "url": "https://www.youtube.com/watch?v=rMvwVtlqjTE"}
+    ],
     "tips": ["Set bar at shoulder height", "Always use safety bars", "Warm up thoroughly"],
-    "labels": ["squat rack", "power rack", "cage", "barbell rack"]
+    "labels": ["squat rack", "power rack", "cage", "barbell rack", "squat-rack"]
+  },
+  {
+    "id": "13",
+    "name": "Leg Extension Machine",
+    "description": "Isolation machine for targeting the quadriceps muscles through a seated knee extension movement.",
+    "muscleGroup": "Legs",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=ljO4jkMFnbk",
+    "videos": [
+      {"title": "Leg Extension Machine Tutorial", "url": "https://www.youtube.com/watch?v=ljO4jkMFnbk"},
+      {"title": "Leg Extension Tips & Common Mistakes", "url": "https://www.youtube.com/watch?v=YyvSfVjQeL0"}
+    ],
+    "tips": ["Adjust pad to just above ankles", "Do not use momentum", "Control the lowering phase"],
+    "labels": ["leg extension", "quad machine", "knee extension", "leg-extension"]
+  },
+  {
+    "id": "14",
+    "name": "Leg Curl Machine",
+    "description": "Isolation machine for the hamstrings. Available in lying, seated, or standing variants.",
+    "muscleGroup": "Legs",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=1Tq3QdYUuHs",
+    "videos": [
+      {"title": "Lying Leg Curl Tutorial", "url": "https://www.youtube.com/watch?v=1Tq3QdYUuHs"},
+      {"title": "Seated Leg Curl vs Lying Leg Curl", "url": "https://www.youtube.com/watch?v=XJNaGx3sMXU"}
+    ],
+    "tips": ["Adjust roller pad to ankles", "Avoid lifting hips off bench", "Squeeze hamstrings at peak contraction"],
+    "labels": ["leg curl", "hamstring curl", "hamstring machine", "lying-down-leg-curl", "seated-leg-curl"]
+  },
+  {
+    "id": "15",
+    "name": "Pec Deck Machine",
+    "description": "Chest fly machine that isolates the pectoral muscles with a fixed arc motion. Safer than dumbbell flies.",
+    "muscleGroup": "Chest",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=eTtrLdBxpBY",
+    "videos": [
+      {"title": "Pec Deck / Chest Fly Machine Form", "url": "https://www.youtube.com/watch?v=eTtrLdBxpBY"},
+      {"title": "Pec Deck vs Cable Fly", "url": "https://www.youtube.com/watch?v=Iwe6AmxVf7o"}
+    ],
+    "tips": ["Keep elbows at shoulder height", "Don't hyperextend at the back", "Squeeze chest at peak"],
+    "labels": ["pec deck", "chest fly machine", "butterfly machine", "chest machine", "chest-fly"]
+  },
+  {
+    "id": "16",
+    "name": "Shoulder Press Machine",
+    "description": "Guided overhead press machine for targeting deltoids and upper body. Great for building shoulder strength safely.",
+    "muscleGroup": "Shoulders",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=hJ4uNL7UMSI",
+    "videos": [
+      {"title": "Shoulder Press Machine Tutorial", "url": "https://www.youtube.com/watch?v=hJ4uNL7UMSI"}
+    ],
+    "tips": ["Adjust seat so handles are at shoulder height", "Do not lock elbows at top", "Keep core braced throughout"],
+    "labels": ["shoulder press machine", "overhead press machine", "military press machine", "overhead-shoulder-press"]
+  },
+  {
+    "id": "17",
+    "name": "Ab Crunch Machine",
+    "description": "Machine for isolating abdominal muscles with a controlled range of motion. Suitable for all fitness levels.",
+    "muscleGroup": "Core",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=cGBlce_AV0A",
+    "videos": [
+      {"title": "Ab Crunch Machine Tutorial", "url": "https://www.youtube.com/watch?v=cGBlce_AV0A"}
+    ],
+    "tips": ["Focus on contracting abs, not pulling with arms", "Exhale on the crunch", "Use light weight for high reps"],
+    "labels": ["ab crunch machine", "abdominal machine", "crunch machine", "ab machine", "abdominal-machine", "torso-rotation-machine"]
+  },
+  {
+    "id": "18",
+    "name": "Hyperextension Bench",
+    "description": "Back extension bench targeting the lower back, glutes, and hamstrings. Essential for spine health and injury prevention.",
+    "muscleGroup": "Back",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=ph3pddpKzzw",
+    "videos": [
+      {"title": "Back Extension / Hyperextension Tutorial", "url": "https://www.youtube.com/watch?v=ph3pddpKzzw"},
+      {"title": "Hyperextension for Lower Back Strength", "url": "https://www.youtube.com/watch?v=1nLVOPxKpwM"}
+    ],
+    "tips": ["Do not hyperextend at the top", "Cross arms over chest or hold behind head", "Squeeze glutes at the top"],
+    "labels": ["hyperextension bench", "back extension machine", "roman chair", "back extension", "back-extension"]
+  },
+  {
+    "id": "19",
+    "name": "Hip Abductor Machine",
+    "description": "Machine for strengthening the hip abductors and glute medius. Important for knee stability and lower body alignment.",
+    "muscleGroup": "Legs",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=kDp8vd7cFsE",
+    "videos": [
+      {"title": "Hip Abductor Machine Tutorial", "url": "https://www.youtube.com/watch?v=kDp8vd7cFsE"}
+    ],
+    "tips": ["Sit upright throughout movement", "Do not use excessive weight", "Control the return phase"],
+    "labels": ["hip abductor machine", "outer thigh machine", "abductor machine", "hip-abduction-adduction"]
+  },
+  {
+    "id": "20",
+    "name": "Hip Adductor Machine",
+    "description": "Machine for working the inner thigh (adductor) muscles. Complements the hip abductor for balanced leg training.",
+    "muscleGroup": "Legs",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=Qk1BF_TqLwA",
+    "videos": [
+      {"title": "Hip Adductor Machine Tutorial", "url": "https://www.youtube.com/watch?v=Qk1BF_TqLwA"}
+    ],
+    "tips": ["Keep back flat against pad", "Avoid locking knees at full adduction", "Use a slow, controlled tempo"],
+    "labels": ["hip adductor machine", "inner thigh machine", "adductor machine"]
+  },
+  {
+    "id": "21",
+    "name": "Assisted Pull-up Machine",
+    "description": "Counterweighted machine that assists bodyweight pull-ups and dips. Perfect for building strength before unassisted reps.",
+    "muscleGroup": "Back",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=hCpMCdF9mRY",
+    "videos": [
+      {"title": "Assisted Pull-up Machine Guide", "url": "https://www.youtube.com/watch?v=hCpMCdF9mRY"},
+      {"title": "From Assisted to Unassisted Pull-ups", "url": "https://www.youtube.com/watch?v=K1NJDkIl4Ug"}
+    ],
+    "tips": ["Higher weight = more assistance (easier)", "Gradually reduce assistance over time", "Can also be used for assisted dips"],
+    "labels": ["assisted pull-up machine", "pull-up assist", "gravitron", "assisted dip machine", "dip-chin-assist"]
+  },
+  {
+    "id": "22",
+    "name": "Battle Ropes",
+    "description": "Heavy anchor ropes used for high-intensity interval training. Builds power, endurance, and full-body conditioning.",
+    "muscleGroup": "Full Body",
+    "difficultyLevel": "Intermediate",
+    "videoUrl": "https://www.youtube.com/watch?v=roPfMv65Hn0",
+    "videos": [
+      {"title": "Battle Ropes Workout Guide", "url": "https://www.youtube.com/watch?v=roPfMv65Hn0"},
+      {"title": "10 Battle Rope Exercises for HIIT", "url": "https://www.youtube.com/watch?v=M4kbFtCFBkY"}
+    ],
+    "tips": ["Maintain athletic stance throughout", "Keep core tight", "Alternate wave patterns for variety"],
+    "labels": ["battle ropes", "battle rope", "heavy ropes", "conditioning ropes"]
+  },
+  {
+    "id": "23",
+    "name": "Kettlebell Rack",
+    "description": "Collection of kettlebells for dynamic, functional strength and conditioning exercises.",
+    "muscleGroup": "Full Body",
+    "difficultyLevel": "Intermediate",
+    "videoUrl": "https://www.youtube.com/watch?v=HEF35NcZVlM",
+    "videos": [
+      {"title": "Kettlebell Swing Tutorial", "url": "https://www.youtube.com/watch?v=HEF35NcZVlM"},
+      {"title": "Kettlebell Workout for Beginners", "url": "https://www.youtube.com/watch?v=GcDONkKp7ew"}
+    ],
+    "tips": ["Start with a light kettlebell to learn form", "Hip hinge is the foundation of most movements", "Keep wrist neutral during swings"],
+    "labels": ["kettlebell", "kettlebells", "kettlebell rack"]
+  },
+  {
+    "id": "24",
+    "name": "Medicine Ball",
+    "description": "Weighted ball for explosive, functional exercises. Improves power, coordination, and core stability.",
+    "muscleGroup": "Full Body",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=RhEJbXc0OB0",
+    "videos": [
+      {"title": "Medicine Ball Exercises Guide", "url": "https://www.youtube.com/watch?v=RhEJbXc0OB0"}
+    ],
+    "tips": ["Choose weight that allows explosive movement", "Use a slam ball for throw exercises", "Brace core during all movements"],
+    "labels": ["medicine ball", "med ball", "slam ball", "weighted ball"]
+  },
+  {
+    "id": "25",
+    "name": "Foam Roller",
+    "description": "Self-myofascial release tool for muscle recovery and flexibility. Used before and after workouts.",
+    "muscleGroup": "Full Body",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=eFIZmiYJHho",
+    "videos": [
+      {"title": "How to Use a Foam Roller", "url": "https://www.youtube.com/watch?v=eFIZmiYJHho"},
+      {"title": "Full Body Foam Rolling Routine", "url": "https://www.youtube.com/watch?v=kLh-sRlAY7A"}
+    ],
+    "tips": ["Roll slowly — 1 inch per second", "Pause on tender spots for 30-60 seconds", "Stay off joints and spine"],
+    "labels": ["foam roller", "foam roll", "roller", "myofascial release"]
+  },
+  {
+    "id": "26",
+    "name": "Cable Crossover Machine",
+    "description": "Dual cable station allowing cable fly and crossover exercises. Excellent for chest, shoulders, and arms isolation.",
+    "muscleGroup": "Chest",
+    "difficultyLevel": "Intermediate",
+    "videoUrl": "https://www.youtube.com/watch?v=taI4XduLpTk",
+    "videos": [
+      {"title": "Cable Fly / Crossover Tutorial", "url": "https://www.youtube.com/watch?v=taI4XduLpTk"},
+      {"title": "Cable Crossover Variations", "url": "https://www.youtube.com/watch?v=yGgQMwSPpDc"}
+    ],
+    "tips": ["Slight bend in elbows throughout", "Squeeze chest at crossover point", "Adjust pulley height to target different chest regions"],
+    "labels": ["cable crossover", "cable fly machine", "crossover machine", "dual cable machine"]
+  },
+  {
+    "id": "27",
+    "name": "Hack Squat Machine",
+    "description": "Angled sled machine for squatting. Reduces lower back stress compared to free barbell squats while building quad and glute strength.",
+    "muscleGroup": "Legs",
+    "difficultyLevel": "Intermediate",
+    "videoUrl": "https://www.youtube.com/watch?v=0tn5K9NlCfo",
+    "videos": [
+      {"title": "Hack Squat Machine Tutorial", "url": "https://www.youtube.com/watch?v=0tn5K9NlCfo"},
+      {"title": "Hack Squat vs Leg Press Differences", "url": "https://www.youtube.com/watch?v=7KHjOXhNrOE"}
+    ],
+    "tips": ["Keep heels shoulder-width apart", "Do not lock knees at top", "Lower to at least 90 degrees for full range"],
+    "labels": ["hack squat machine", "hack squat", "sled squat", "angled squat machine"]
+  },
+  {
+    "id": "28",
+    "name": "Calf Raise Machine",
+    "description": "Standing or seated machine specifically targeting the gastrocnemius and soleus muscles of the calves.",
+    "muscleGroup": "Legs",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=JbyjNymZOt0",
+    "videos": [
+      {"title": "Standing Calf Raise Machine Guide", "url": "https://www.youtube.com/watch?v=JbyjNymZOt0"},
+      {"title": "Seated vs Standing Calf Raise", "url": "https://www.youtube.com/watch?v=4-qN3t1KxiI"}
+    ],
+    "tips": ["Full range of motion: heels below platform", "Hold the peak contraction for 1-2 seconds", "Do not bounce at the bottom"],
+    "labels": ["calf raise machine", "calf machine", "standing calf raise", "seated calf raise"]
+  },
+  {
+    "id": "29",
+    "name": "Preacher Curl Bench",
+    "description": "Angled arm pad for strict bicep curls with no cheating. Forces the biceps to do all the work throughout the range of motion.",
+    "muscleGroup": "Arms",
+    "difficultyLevel": "Beginner",
+    "videoUrl": "https://www.youtube.com/watch?v=fIWP-FRFNU0",
+    "videos": [
+      {"title": "Preacher Curl Technique Guide", "url": "https://www.youtube.com/watch?v=fIWP-FRFNU0"},
+      {"title": "EZ Bar vs Dumbbell Preacher Curl", "url": "https://www.youtube.com/watch?v=FLKGVGgSLDM"}
+    ],
+    "tips": ["Armpits should be at the top of the pad", "Do not fully lock out at the bottom", "Squeeze at the peak of contraction"],
+    "labels": ["preacher curl", "preacher curl bench", "scott curl", "arm curl machine", "arm-curl"]
+  },
+  {
+    "id": "30",
+    "name": "Stair Climber",
+    "description": "Cardio machine simulating stair climbing. High calorie burn with significant glute and quad engagement.",
+    "muscleGroup": "Cardio",
+    "difficultyLevel": "Intermediate",
+    "videoUrl": "https://www.youtube.com/watch?v=oHqRG1qSAeo",
+    "videos": [
+      {"title": "Stair Climber Workout Guide", "url": "https://www.youtube.com/watch?v=oHqRG1qSAeo"},
+      {"title": "Stair Climber HIIT Intervals", "url": "https://www.youtube.com/watch?v=6vYstq1p6WU"}
+    ],
+    "tips": ["Don't lean on the handrails", "Keep back straight", "Vary speed for interval training"],
+    "labels": ["stair climber", "step machine", "stepper", "stairmaster"]
   }
 ]

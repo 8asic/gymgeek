@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/equipment.dart';
-import '../utils/constants.dart';
+import '../utils/app_theme.dart';
+import '../utils/app_constants.dart';
 
 class EquipmentCard extends StatelessWidget {
   final Equipment equipment;

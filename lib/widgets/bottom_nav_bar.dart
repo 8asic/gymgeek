@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../utils/constants.dart';
+import '../utils/app_theme.dart';
 
 class GymGeekBottomNav extends StatelessWidget {
   final int currentIndex;

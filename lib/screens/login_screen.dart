@@ -1,6 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../utils/constants.dart';
+import '../utils/app_theme.dart';
 import 'home_shell.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -48,12 +49,24 @@ class _LoginScreenState extends State<LoginScreen> {
     }
 
     setState(() { _loading = true; _error = null; });
-    await Future.delayed(const Duration(milliseconds: 600));
 
-    final valid = (email == _demoEmail && pass == _demoPass) ||
-        (email.isNotEmpty && pass.length >= 4);
+    // Simulate authentication service call (SUC1)
+    try {
+      await Future.delayed(const Duration(milliseconds: 800))
+          .timeout(const Duration(seconds: 10));
+    } on TimeoutException {
+      if (!mounted) return;
+      setState(() {
+        _loading = false;
+        _error = 'Connection timeout. Please try again.';
+      });
+      return;
+    }
 
     if (!mounted) return;
+
+    // Only the demo account is valid (SUC1: validate credentials)
+    final valid = email == _demoEmail && pass == _demoPass;
 
     if (valid) {
       final prefs = await SharedPreferences.getInstance();
@@ -64,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> {
         MaterialPageRoute(builder: (_) => const HomeShell()),
       );
     } else {
-      setState(() { _loading = false; _error = 'Invalid credentials.'; });
+      setState(() { _loading = false; _error = 'Incorrect username or password.'; });
     }
   }
 
@@ -172,13 +185,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const Spacer(),
-                  Center(
+                  const Center(
                     child: Padding(
-                      padding: const EdgeInsets.only(bottom: 20, top: 40),
+                      padding: EdgeInsets.only(bottom: 20, top: 40),
                       child: Text(
                         'GymGeek • Engineering of AI-Intensive Systems\nJeronim Bašić & Beibarys Abissatov',
                         textAlign: TextAlign.center,
-                        style: const TextStyle(color: AppColors.textSecondary, fontSize: 11),
+                        style: TextStyle(color: AppColors.textSecondary, fontSize: 11),
                       ),
                     ),
                   ),

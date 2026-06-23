@@ -15,15 +15,29 @@ class HomeShell extends StatefulWidget {
 
 class _HomeShellState extends State<HomeShell> {
   int _index = 0;
+  final _camKey  = GlobalKey<CameraScreenState>();
+  final _dashKey = GlobalKey<DashboardScreenState>();
 
-  // IndexedStack keeps all screens alive — state preserved when switching tabs
-  final _screens = const [
-    CameraScreen(),
-    ExerciseLibraryScreen(),   // replaces old flat SearchScreen
-    DashboardScreen(),
-    ResearchScreen(),
-    ProfileScreen(),
-  ];
+  late final List<Widget> _screens;
+
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      CameraScreen(key: _camKey),
+      const ExerciseLibraryScreen(),
+      DashboardScreen(key: _dashKey),
+      const ResearchScreen(),
+      const ProfileScreen(),
+    ];
+  }
+
+  void _onTap(int i) {
+    if (_index == 0 && i != 0) _camKey.currentState?.pause();
+    if (_index != 0 && i == 0) _camKey.currentState?.resume();
+    if (i == 2) _dashKey.currentState?.reload();
+    setState(() => _index = i);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +48,7 @@ class _HomeShellState extends State<HomeShell> {
       ),
       bottomNavigationBar: GymGeekBottomNav(
         currentIndex: _index,
-        onTap: (i) => setState(() => _index = i),
+        onTap: _onTap,
       ),
     );
   }

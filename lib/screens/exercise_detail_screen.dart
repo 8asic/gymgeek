@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../models/exercise.dart';
 import '../models/workout_set.dart';
-import '../services/database_helper.dart';
-import '../utils/constants.dart';
+import '../services/database_service.dart';
+import '../utils/app_theme.dart';
 
 class ExerciseDetailScreen extends StatefulWidget {
   final Exercise exercise;
@@ -30,8 +30,8 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   }
 
   Future<void> _loadHistory() async {
-    final sets = await DatabaseHelper().getSetsForExercise(ex.id, limit: 20);
-    final prs = await DatabaseHelper().getPersonalRecords();
+    final sets = await DatabaseService().getSetsForExercise(ex.id, limit: 20);
+    final prs = await DatabaseService().getPersonalRecords();
     PersonalRecord? myPr;
     try {
       myPr = prs.firstWhere((p) => p.exerciseId == ex.id);
@@ -40,7 +40,7 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
   }
 
   Future<void> _logSet() async {
-    final isPR = await DatabaseHelper().isNewPR(WorkoutSet(
+    final isPR = await DatabaseService().isNewPR(WorkoutSet(
       exerciseId: ex.id,
       exerciseName: ex.name,
       setNumber: _history.where((s) =>
@@ -59,8 +59,8 @@ class _ExerciseDetailScreenState extends State<ExerciseDetailScreen> {
       reps: _reps,
       timestamp: DateTime.now(),
     );
-    await DatabaseHelper().insertSet(set);
-    await DatabaseHelper().logAuditEvent(
+    await DatabaseService().insertSet(set);
+    await DatabaseService().logAuditEvent(
       eventType: 'set_logged',
       details: 'exercise=${ex.id} weight=$_weight reps=$_reps isPR=$isPR',
     );

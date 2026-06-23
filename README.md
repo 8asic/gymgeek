@@ -7,27 +7,27 @@
 
 ## What is GymGeek?
 
-GymGeek is a cross-platform Flutter app that:
-- **Identifies gym equipment** in real-time using your phone camera (YOLO + TensorFlow Lite)
+GymGeek is an Android Flutter app that:
+- **Identifies gym equipment** in real time using the phone camera (ResNet50 → TFLite, 23-class Roboflow GymBro dataset)
 - **Shows instructional videos** for correct usage (YouTube)
-- **Summarises fitness research** using an on-device LLM via Ollama + a RAG pipeline
-- **Logs workouts** to local SQLite storage
-- **Tracks progress** with a dashboard and charts
+- **Logs sets, reps and weight** per exercise with personal-record detection (Epley 1RM formula)
+- **Summarises fitness research** using Gemini 2.0 Flash + a local RAG pipeline
+- **Tracks progress** on a unified activity dashboard with charts
 - **Personalises recommendations** based on your fitness goal
 
 ---
 
 ## Implemented Use Cases
 
-| Use Case | Status | Where |
-|----------|--------|-------|
+| Use Case | Status | Key Files |
+|----------|--------|-----------|
 | UC-01: Authenticate User | ✅ | `login_screen.dart` |
-| UC-02: Identify Gym Equipment (AI – CV) | ✅ | `camera_screen.dart` + `tflite_service.dart` |
+| UC-02: Identify Gym Equipment (AI – CV) | ✅ | `camera_screen.dart`, `detection_service.dart` |
 | UC-03: View Equipment Instructions | ✅ | `video_player_screen.dart` |
-| UC-04: Get Research Summary (AI – LLM + RAG) | ✅ | `research_screen.dart` + `llm_service.dart` |
-| UC-05: Log Workout Session | ✅ | `video_player_screen.dart` + `database_helper.dart` |
+| UC-04: Get Research Summary (AI – LLM + RAG) | ✅ | `research_screen.dart`, `research_service.dart` |
+| UC-05: Log Workout / Sets | ✅ | `exercise_detail_screen.dart`, `video_player_screen.dart` |
 | UC-06: View Progress Dashboard | ✅ | `dashboard_screen.dart` |
-| UC-07: Search Equipment by Name | ✅ | `search_screen.dart` |
+| UC-07: Search Equipment by Name | ✅ | `equipment_search_screen.dart`, `exercise_library_screen.dart` |
 | UC-08: Set Fitness Goals | ✅ | `profile_screen.dart` |
 
 **8 / 8 use cases implemented (100%)**
@@ -39,33 +39,28 @@ GymGeek is a cross-platform Flutter app that:
 | Layer | Technology |
 |-------|-----------|
 | Framework | Flutter 3.x (Dart) |
-| CV Model | YOLO / MobileNet → TensorFlow Lite |
-| LLM | Llama 3 via Ollama (local) |
-| RAG | Local JSON knowledge base (research.json) |
-| Database | SQLite via sqflite |
-| State | Provider + StatefulWidget |
+| CV Model | ResNet50 → ONNX → TFLite float16 (46 MB, 23 gym equipment classes) |
+| LLM | Gemini 2.0 Flash via Google Generative AI SDK |
+| RAG | Local JSON knowledge base (`assets/research.json`) |
+| Database | SQLite via sqflite (two tables: sessions + sets) |
 | Charts | fl_chart |
 
 ---
 
 ## Prerequisites
 
-Install these before anything else:
-
 | Tool | Version | Link |
 |------|---------|------|
 | Flutter SDK | ≥ 3.0.0 | https://flutter.dev/docs/get-started/install |
 | Dart SDK | ≥ 3.0.0 | Included with Flutter |
 | Android Studio | Latest | https://developer.android.com/studio |
-| Xcode (iOS only) | ≥ 15 | Mac App Store |
-| Ollama | Latest | https://ollama.com |
 | Git | Any | https://git-scm.com |
 
-Check your Flutter installation:
+Verify your Flutter installation before anything else:
 ```bash
 flutter doctor
 ```
-All checkmarks should be green before proceeding.
+All checkmarks should be green.
 
 ---
 
@@ -84,152 +79,48 @@ cd gymgeek
 flutter pub get
 ```
 
-### Step 3 — Add the TFLite model (for real CV detection)
+### Step 3 — Add your Gemini API key
 
-> **Skip this step if you want to run in demo mode first** — the app works without the model and cycles through sample detections automatically.
+The app uses [Google Gemini 2.0 Flash](https://aistudio.google.com) for AI research summaries.
 
-**Option A: Download a pre-converted gym equipment model**
-
-The easiest option is to find a MobileNet/YOLO model already converted to `.tflite`:
-
-1. Go to: https://www.kaggle.com/models  
-   Search: "gym equipment tflite" or "exercise equipment mobilenet"
-2. Download `model.tflite` and `labels.txt`
-3. Place both files in the `assets/` folder
-
-**Option B: Use Google's pre-trained object detection model**
-
-```bash
-# Download MobileNet SSD (recognises 90 COCO categories — not gym-specific but works for demo)
-curl -L "https://storage.googleapis.com/download.tensorflow.org/models/tflite/coco_ssd_mobilenet_v1_1.0_quant_2018_06_29.zip" -o model.zip
-unzip model.zip
-cp detect.tflite assets/model.tflite
-cp labelmap.txt assets/labels.txt
-```
-
-Then uncomment lines in `pubspec.yaml`:
-```yaml
-# assets:
-#   - assets/model.tflite    ← remove the # from this line
-#   - assets/labels.txt      ← remove the # from this line
-```
-
-### Step 4 — Add Android permissions
-
-Open `android/app/src/main/AndroidManifest.xml` and add **inside `<manifest>`** (before `<application>`):
-
-```xml
-<uses-permission android:name="android.permission.CAMERA"/>
-<uses-permission android:name="android.permission.INTERNET"/>
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-<uses-feature android:name="android.hardware.camera" android:required="true"/>
-
-<queries>
-    <intent>
-        <action android:name="android.intent.action.VIEW"/>
-        <data android:scheme="https"/>
-    </intent>
-</queries>
-```
-
-Also add to the `<application>` tag:
-```xml
-android:requestLegacyExternalStorage="true"
-```
-
-### Step 5 — Add iOS permissions (if building for iPhone)
-
-Open `ios/Runner/Info.plist` and add inside `<dict>`:
-
-```xml
-<key>NSCameraUsageDescription</key>
-<string>GymGeek needs camera access to identify gym equipment</string>
-<key>NSPhotoLibraryUsageDescription</key>
-<string>GymGeek needs photo access to analyse gym equipment images</string>
-<key>io.flutter.embedded_views_preview</key>
-<true/>
-```
-
-### Step 6 — Set up Ollama (for AI research summaries)
-
-Ollama runs the LLM locally on your computer. The phone connects to it over your local network.
-
-**Install Ollama:**
-```bash
-# macOS
-brew install ollama
-
-# Linux
-curl -fsSL https://ollama.com/install.sh | sh
-
-# Windows: download installer from https://ollama.com/download
-```
-
-**Download Llama 3:**
-```bash
-ollama pull llama3
-```
-
-**Start Ollama server** (must be running when using the Research tab):
-```bash
-ollama serve
-```
-
-Ollama listens on `http://localhost:11434` by default.
-
-**Configure the app's Ollama URL:**
-
-Open `lib/utils/constants.dart` and set the correct URL:
+1. Go to **https://aistudio.google.com/apikey**
+2. Click **"Create API key"** → **"Create API key in new project"**
+3. Copy the key (it starts with `AIzaSy…`)
+4. Open `lib/utils/app_constants.dart` and replace the placeholder:
 
 ```dart
-// Android Emulator → use this:
-static const String ollamaBaseUrl = 'http://10.0.2.2:11434';
-
-// Physical Android/iOS device → use your computer's LAN IP:
-// Find your IP: run `ifconfig` (Mac/Linux) or `ipconfig` (Windows)
-// Example:
-static const String ollamaBaseUrl = 'http://192.168.1.45:11434';
+static const String geminiApiKey = 'AIzaSy_YOUR_KEY_HERE';
 ```
 
-> **Tip:** If Ollama is unavailable, the Research tab still works — it shows the raw paper excerpts from the local RAG knowledge base without LLM generation.
+> **If you skip this step** the Research tab still works — it falls back to showing raw paper excerpts from the local RAG knowledge base, with an error banner at the top explaining why AI generation is unavailable.
 
----
+### Step 4 — Run on a physical Android device
 
-## Running the App
+The CV detection requires a real camera — **emulators do not work** for the Scan tab.
 
-### On Android Emulator
+1. Enable **Developer Options** on your phone  
+   (Settings → About Phone → tap **Build Number** 7 times)
+2. Enable **USB Debugging** in Developer Options
+3. Connect via USB and accept the "Allow USB debugging" prompt on the phone
+4. Verify the device is detected:
+   ```bash
+   flutter devices
+   ```
+5. Run:
+   ```bash
+   flutter run
+   ```
 
-```bash
-# Start an AVD in Android Studio first, then:
-flutter run
-```
+> **Demo mode** — if you want to run on an emulator anyway, the Scan tab enters demo mode and cycles through 8 realistic equipment detections automatically. All other tabs (Exercise Library, Dashboard, Research, Profile) work fully on emulators.
 
-### On a Physical Android Device
-
-1. Enable **Developer Options** on your phone (Settings → About Phone → tap Build Number 7 times)
-2. Enable **USB Debugging**
-3. Connect via USB
-4. Run:
-```bash
-flutter run
-```
-
-### On iOS Simulator (Mac only)
-
-```bash
-open -a Simulator
-flutter run
-```
-
-### On a Physical iPhone (Mac only)
+### Step 5 — iOS (Mac only, optional)
 
 1. Open `ios/Runner.xcworkspace` in Xcode
-2. Set your Apple ID in Signing & Capabilities
-3. Select your device and press Run in Xcode, or:
-```bash
-flutter run --release
-```
+2. Set your Apple ID under **Signing & Capabilities**
+3. Select your device and press **Run**, or:
+   ```bash
+   flutter run --release
+   ```
 
 ---
 
@@ -240,7 +131,7 @@ flutter run --release
 | Email | `demo@gymgeek.app` |
 | Password | `gymgeek123` |
 
-Any email + password ≥ 4 characters also works for the prototype.
+Any email + password ≥ 4 characters also works.
 
 ---
 
@@ -249,54 +140,89 @@ Any email + password ≥ 4 characters also works for the prototype.
 ```
 gymgeek/
 ├── lib/
-│   ├── main.dart                    # Entry point + auth gate
+│   ├── main.dart                         # Entry point + auth gate
 │   ├── screens/
-│   │   ├── login_screen.dart        # UC-01: Authentication
-│   │   ├── home_shell.dart          # Bottom nav wrapper
-│   │   ├── camera_screen.dart       # UC-02: Equipment detection (AI/CV)
-│   │   ├── search_screen.dart       # UC-07: Manual search
-│   │   ├── video_player_screen.dart # UC-03: Instructions + UC-05: Log workout
-│   │   ├── dashboard_screen.dart    # UC-06: Progress dashboard
-│   │   ├── research_screen.dart     # UC-04: LLM + RAG research summary
-│   │   └── profile_screen.dart      # UC-08: Fitness goals + GDPR settings
+│   │   ├── login_screen.dart             # UC-01: Authentication
+│   │   ├── home_shell.dart               # Bottom nav (IndexedStack)
+│   │   ├── camera_screen.dart            # UC-02: Equipment detection (CV/AI)
+│   │   ├── equipment_search_screen.dart  # UC-07: Manual equipment search
+│   │   ├── exercise_library_screen.dart  # UC-07: Exercise browser + muscle filters
+│   │   ├── exercise_detail_screen.dart   # UC-05: Set/rep/weight logging + PR detection
+│   │   ├── video_player_screen.dart      # UC-03: Instructions + UC-05: session log
+│   │   ├── dashboard_screen.dart         # UC-06: Unified activity dashboard
+│   │   ├── research_screen.dart          # UC-04: Gemini + RAG research summary
+│   │   └── profile_screen.dart           # UC-08: Fitness goals + GDPR settings
 │   ├── services/
-│   │   ├── tflite_service.dart      # CV model inference (AI component)
-│   │   ├── llm_service.dart         # Ollama LLM + RAG pipeline (AI component)
-│   │   ├── equipment_service.dart   # Equipment database + search
-│   │   └── database_helper.dart     # SQLite CRUD + audit log
+│   │   ├── detection_service.dart        # ResNet50 TFLite inference (AI/CV)
+│   │   ├── research_service.dart         # Gemini + RAG pipeline (AI/LLM)
+│   │   ├── equipment_service.dart        # Equipment catalogue + label matching
+│   │   ├── exercise_service.dart         # Exercise catalogue loader
+│   │   └── database_service.dart         # SQLite CRUD, audit log, GDPR wipe
 │   ├── models/
 │   │   ├── equipment.dart
-│   │   ├── workout.dart
+│   │   ├── exercise.dart
+│   │   ├── workout_session.dart
+│   │   ├── workout_set.dart              # Also holds PersonalRecord
 │   │   └── goal.dart
 │   ├── widgets/
 │   │   ├── bottom_nav_bar.dart
 │   │   └── equipment_card.dart
 │   └── utils/
-│       └── constants.dart           # Ollama URL, confidence threshold, theme
+│       ├── app_theme.dart                # AppColors + Material theme
+│       └── app_constants.dart            # API key, confidence threshold, timeouts
 ├── assets/
-│   ├── equipment.json               # 12 equipment entries (name, tips, video URL)
-│   ├── research.json                # 8 research papers (RAG knowledge base)
-│   ├── model.tflite                 # ← ADD THIS (see Step 3)
-│   └── labels.txt                   # ← ADD THIS (see Step 3)
-├── documentation/
-│   └── GymGeek_Documentation.pdf
+│   ├── equipment_classifier.tflite       # ResNet50 float16 model (46 MB, bundled)
+│   ├── equipment_labels.txt              # 23 Roboflow GymBro class names
+│   ├── equipment.json                    # 19 equipment entries (tips, videos, labels)
+│   ├── exercises.json                    # Exercise catalogue with muscle filters
+│   └── research.json                     # 8 research papers (RAG knowledge base)
+├── tools/
+│   ├── convert_model.py                  # PyTorch → ONNX → TFLite conversion script
+│   ├── gym_equipment_resnet50.pt         # Original PyTorch checkpoint (teammate's model)
+│   └── gym_equipment_resnet50.onnx       # Intermediate ONNX conversion
 ├── android/
-│   └── PERMISSIONS.md              # Reminder for manifest changes
+├── test/
+│   └── widget_test.dart
 ├── pubspec.yaml
 └── README.md
 ```
 
 ---
 
-## CV Demo Mode
+## CV Model Details
 
-If no `model.tflite` is found at startup, the app enters **Demo Mode**:
-- A banner appears on the camera screen ("DEMO MODE")
-- Every scan cycles through: Treadmill → Leg Press → Bench Press → Rowing Machine → Stationary Bike
-- Confidence scores are realistic (78–93%)
-- All other features (save workout, dashboard, search, research) work identically
+The bundled `assets/equipment_classifier.tflite` is a **ResNet50** trained on the [Roboflow GymBro dataset](https://universe.roboflow.com) (23 gym equipment classes).
 
-This is useful for demonstrating the full UC flow without a gym-specific model.
+**Conversion pipeline** (in `tools/convert_model.py`):
+```
+gym_equipment_resnet50.pt  →  gym_equipment_resnet50.onnx  →  equipment_classifier.tflite
+     (TorchScript)               (onnx2tf)                       (float16, 46 MB)
+```
+
+**23 recognised classes:**
+`abdominal-machine`, `arm-extension`, `back-extension`, `bench-press`, `cable-lat-pulldown`,
+`chest-press`, `hip-abduction-adduction`, `lat-pulldown`, `leg-extension`, `leg-press`,
+`lying-down-leg-curl`, `overhead-shoulder-press`, `seated-cable-row`, `seated-leg-curl`,
+`smith-machine`, `squat-rack`, `stair-climber`, `stationary-bike`, `torso-rotation-machine`,
+`treadmill`, `upright-bike`, `vertical-knee-raise`, `weight-assisted-chin-dip-machine`
+
+If no model is found at startup the app enters **demo mode** — the Scan tab cycles through
+8 representative detections automatically, confidence scores included.
+
+---
+
+## Architecture Overview
+
+```
+Phone (Flutter App)
+├── Scan tab      → DetectionService (TFLite on-device) → EquipmentService (JSON catalogue)
+│                                                        → DatabaseService (audit log)
+├── Library tab   → ExerciseService (JSON) → ExerciseDetailScreen
+│                                           → DatabaseService (sets/reps/weight + PR)
+├── Dashboard tab → DatabaseService (sessions + sets) → fl_chart
+├── Research tab  → ResearchService: RAG (research.json) → Gemini 2.0 Flash API
+└── Profile tab   → DatabaseService (goals, settings, GDPR wipe)
+```
 
 ---
 
@@ -305,48 +231,28 @@ This is useful for demonstrating the full UC flow without a gym-specific model.
 | Problem | Solution |
 |---------|----------|
 | `flutter pub get` fails | Run `flutter upgrade` then try again |
-| Camera permission denied | Check AndroidManifest.xml / Info.plist changes in Steps 4–5 |
-| Ollama not connecting on emulator | Use `http://10.0.2.2:11434` (not `localhost`) |
-| Ollama not connecting on real device | Use your computer's LAN IP (e.g. `192.168.1.X:11434`) |
-| `ollama serve` already running error | Run `pkill ollama` then `ollama serve` again |
-| iOS build fails | Open in Xcode, check signing team in "Signing & Capabilities" |
+| Camera not working on emulator | Use a physical device — emulators lack a real camera |
+| CV detection always shows demo | Model is loading; if it persists, check `assets/equipment_classifier.tflite` is present |
+| Research tab shows orange warning | Add a valid Gemini API key to `app_constants.dart` (see Step 3) |
+| Gemini quota exceeded (limit: 0) | The API key's project has no free quota; create a new key at aistudio.google.com/apikey |
+| iOS build fails | Open in Xcode, check signing team under "Signing & Capabilities" |
 | App crashes on launch | Run `flutter clean && flutter pub get && flutter run` |
-| TFLite model slow | Use a quantised model (INT8) — look for `_quant` in filename |
+| Build number too low | Ensure `minSdkVersion` ≥ 21 in `android/app/build.gradle.kts` |
 
 ---
 
-## Architecture Overview
+## Suggested Demo Order (5–7 min)
 
-```
-Phone (Flutter App)
-├── Camera Screen ──→ TFLite Service ──→ Equipment Database
-│                     (on-device AI)       (local JSON)
-├── Search Screen ──→ Equipment Service ──→ Equipment Database  
-├── Video Screen  ──→ YouTube (url_launcher) + SQLite (workout log)
-├── Dashboard     ──→ SQLite (workout history) + fl_chart
-├── Research      ──→ RAG (research.json) ──→ Ollama HTTP ──→ Llama 3
-│                                              (local network)
-└── Profile       ──→ SQLite (goals, settings) + Recommendation engine
-```
-
----
-
-## Demo Video
-
-[Insert link here after recording]
-
-**Suggested demo order for video (5–7 min):**
-
-1. `0:00` Launch app → Login (UC-01)
-2. `0:30` Camera tab → point at equipment → detection result (UC-02)
-3. `1:15` Tap "View Instructions" → video thumbnail + tips (UC-03)
-4. `1:45` Save workout → 30 min → "Saved!" toast (UC-05)
-5. `2:00` Search tab → type "treadmill" → select → view instructions (UC-07)
-6. `2:30` Dashboard tab → show bar chart + sessions (UC-06)
-7. `3:00` Research tab → type "stretching injury prevention" → AI summary + sources (UC-04)
-8. `4:00` Profile tab → select "Strength" goal → recommendations appear (UC-08)
-9. `4:30` Profile → toggle GDPR consent, show "Delete All Data" dialog
-10. `5:00` Back to camera → DEMO MODE banner visible if no model loaded
+1. `0:00` Launch → Login with `demo@gymgeek.app` / `gymgeek123` (UC-01)
+2. `0:30` Scan tab → point camera at gym equipment → detection result + confidence sheet (UC-02)
+3. `1:15` Tap "View Instructions" → select video → opens YouTube (UC-03)
+4. `1:45` Tap "Save Session" → 30 min → success toast (UC-05 / sessions)
+5. `2:15` Library tab → browse exercises → tap one → log a set with weight + reps (UC-05 / sets)
+6. `3:00` Dashboard tab → unified activity list showing both sessions and sets (UC-06)
+7. `3:30` Long-press an entry to edit; swipe left to delete
+8. `4:00` Research tab → type "stretching injury prevention" → AI summary + RAG sources (UC-04)
+9. `4:45` Profile tab → select goal → personalised recommendation appears (UC-08)
+10. `5:15` Profile → GDPR section → "Delete All Data" confirmation dialog
 
 ---
 

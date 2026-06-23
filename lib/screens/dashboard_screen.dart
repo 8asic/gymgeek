@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
-import '../services/database_helper.dart';
-import '../models/workout.dart';
-import '../utils/constants.dart';
+import '../services/database_service.dart';
+import '../models/workout_session.dart';
+import '../models/workout_set.dart';
+import '../utils/app_theme.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<DashboardScreen> createState() => DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class DashboardScreenState extends State<DashboardScreen> {
   List<WorkoutSession> _recent = [];
+  List<WorkoutSet> _recentSets = [];
   Map<String, int> _byEquipment = {};
   int _totalMinutes = 0;
   int _weekCount = 0;
@@ -22,15 +24,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() { super.initState(); _load(); }
 
+  void reload() => _load();
+
   Future<void> _load() async {
     setState(() => _loading = true);
-    final db = DatabaseHelper();
+    final db = DatabaseService();
     final results = await Future.wait([
       db.getRecentWorkouts(limit: 50),
       db.getWorkoutCountByEquipment(),
       db.getTotalWorkoutMinutes(),
       db.getWorkoutsThisWeek(),
       db.getStreak(),
+      db.getRecentSets(limit: 30),
     ]);
     if (!mounted) return;
     setState(() {
@@ -39,8 +44,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
       _totalMinutes = results[2] as int;
       _weekCount = results[3] as int;
       _streak = results[4] as int;
+      _recentSets = results[5] as List<WorkoutSet>;
       _loading = false;
     });
+  }
+
+  List<Map<String, dynamic>> get _mergedActivity {
+    final items = <Map<String, dynamic>>[
+      ..._recentSets.map((s) => {'type': 'set', 'ts': s.timestamp, 'data': s}),
+      ..._recent.map((s) => {'type': 'session', 'ts': s.timestamp, 'data': s}),
+    ]..sort((a, b) =>
+        (b['ts'] as DateTime).compareTo(a['ts'] as DateTime));
+    return items.take(20).toList();
   }
 
   void _showSnack(String msg, {Color? color}) {
@@ -54,9 +69,124 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Future<void> _deleteWorkout(WorkoutSession s) async {
-    await DatabaseHelper().deleteWorkout(s.id!);
+    await DatabaseService().deleteWorkout(s.id!);
     _showSnack('Workout deleted', color: Colors.red.shade700);
     _load();
+  }
+
+  void _showEditSetSheet(WorkoutSet s) {
+    double weight = s.weightKg;
+    int reps = s.reps;
+    final notesCtrl = TextEditingController(text: s.notes);
+
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.surface,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+      builder: (_) => StatefulBuilder(
+        builder: (ctx, setModal) => Padding(
+          padding: EdgeInsets.fromLTRB(
+              24, 24, 24, MediaQuery.of(ctx).viewInsets.bottom + 24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(child: Container(
+                width: 40, height: 4,
+                decoration: BoxDecoration(color: AppColors.cardLight,
+                    borderRadius: BorderRadius.circular(2)),
+              )),
+              const SizedBox(height: 20),
+              Text('Edit: ${s.exerciseName}',
+                  style: const TextStyle(color: AppColors.textPrimary,
+                      fontSize: 18, fontWeight: FontWeight.bold)),
+              const SizedBox(height: 16),
+              const Text('Weight (kg)',
+                  style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+              const SizedBox(height: 6),
+              Row(children: [
+                IconButton(
+                  onPressed: () => setModal(() { if (weight >= 2.5) weight -= 2.5; }),
+                  icon: const Icon(Icons.remove_circle_outline,
+                      color: AppColors.textSecondary),
+                ),
+                Expanded(child: Center(child: Text(
+                  '${weight.toStringAsFixed(1)} kg',
+                  style: const TextStyle(color: AppColors.textPrimary,
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ))),
+                IconButton(
+                  onPressed: () => setModal(() => weight += 2.5),
+                  icon: const Icon(Icons.add_circle_outline,
+                      color: AppColors.primary),
+                ),
+              ]),
+              const SizedBox(height: 8),
+              const Text('Reps',
+                  style: TextStyle(color: AppColors.textSecondary, fontSize: 13)),
+              const SizedBox(height: 6),
+              Row(children: [
+                IconButton(
+                  onPressed: () => setModal(() { if (reps > 1) reps--; }),
+                  icon: const Icon(Icons.remove_circle_outline,
+                      color: AppColors.textSecondary),
+                ),
+                Expanded(child: Center(child: Text(
+                  '$reps reps',
+                  style: const TextStyle(color: AppColors.textPrimary,
+                      fontSize: 18, fontWeight: FontWeight.bold),
+                ))),
+                IconButton(
+                  onPressed: () => setModal(() => reps++),
+                  icon: const Icon(Icons.add_circle_outline,
+                      color: AppColors.primary),
+                ),
+              ]),
+              const SizedBox(height: 10),
+              TextField(
+                controller: notesCtrl,
+                style: const TextStyle(color: AppColors.textPrimary),
+                maxLines: 2,
+                decoration: const InputDecoration(hintText: 'Notes'),
+              ),
+              const SizedBox(height: 16),
+              Row(children: [
+                Expanded(child: OutlinedButton.icon(
+                  onPressed: () { Navigator.pop(ctx); _deleteSet(s); },
+                  icon: const Icon(Icons.delete_outline, color: Colors.red, size: 18),
+                  label: const Text('Delete', style: TextStyle(color: Colors.red)),
+                  style: OutlinedButton.styleFrom(
+                      side: const BorderSide(color: Colors.red),
+                      minimumSize: const Size(0, 46)),
+                )),
+                const SizedBox(width: 12),
+                Expanded(child: ElevatedButton(
+                  onPressed: () async {
+                    await DatabaseService().deleteSet(s.id!);
+                    await DatabaseService().insertSet(WorkoutSet(
+                      exerciseId: s.exerciseId,
+                      exerciseName: s.exerciseName,
+                      setNumber: s.setNumber,
+                      weightKg: weight,
+                      reps: reps,
+                      notes: notesCtrl.text.trim(),
+                      timestamp: s.timestamp,
+                    ));
+                    if (ctx.mounted) Navigator.pop(ctx);
+                    _showSnack('Set updated', color: AppColors.success);
+                    _load();
+                  },
+                  style: ElevatedButton.styleFrom(minimumSize: const Size(0, 46)),
+                  child: const Text('Save'),
+                )),
+              ]),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   void _showEditSheet(WorkoutSession s) {
@@ -133,8 +263,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   child: ElevatedButton(
                     onPressed: () async {
                       // Update by delete + re-insert with same timestamp
-                      await DatabaseHelper().deleteWorkout(s.id!);
-                      await DatabaseHelper().insertWorkout(WorkoutSession(
+                      await DatabaseService().deleteWorkout(s.id!);
+                      await DatabaseService().insertWorkout(WorkoutSession(
                         equipmentId: s.equipmentId,
                         equipmentName: s.equipmentName,
                         durationMinutes: duration,
@@ -169,7 +299,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
-          : _recent.isEmpty
+          : (_recent.isEmpty && _recentSets.isEmpty)
               ? _emptyState()
               : RefreshIndicator(
                   onRefresh: _load,
@@ -189,20 +319,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           _barChart(),
                           const SizedBox(height: 24),
                         ],
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text('Recent Sessions',
-                                style: TextStyle(color: AppColors.textPrimary,
-                                    fontSize: 17, fontWeight: FontWeight.bold)),
-                            Text('Hold to edit • Swipe to delete',
-                                style: TextStyle(
-                                    color: AppColors.textSecondary.withOpacity(0.6),
-                                    fontSize: 11)),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        ..._recent.map((s) => _workoutTile(s)),
+                        if (_recentSets.isNotEmpty || _recent.isNotEmpty) ...[
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const Text('Recent Activity',
+                                  style: TextStyle(color: AppColors.textPrimary,
+                                      fontSize: 17, fontWeight: FontWeight.bold)),
+                              Text('Hold to edit • Swipe to delete',
+                                  style: TextStyle(
+                                      color: AppColors.textSecondary.withValues(alpha: 0.6),
+                                      fontSize: 11)),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          ..._mergedActivity.map((item) {
+                            final type = item['type'] as String;
+                            return type == 'set'
+                                ? _setTile(item['data'] as WorkoutSet)
+                                : _workoutTile(item['data'] as WorkoutSession);
+                          }),
+                        ],
                         const SizedBox(height: 20),
                       ],
                     ),
@@ -211,15 +348,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _emptyState() => Center(
+  Widget _emptyState() => const Center(
     child: Column(mainAxisSize: MainAxisSize.min, children: [
-      const Icon(Icons.fitness_center, color: AppColors.textSecondary, size: 64),
-      const SizedBox(height: 16),
-      const Text('No workouts yet',
+      Icon(Icons.fitness_center, color: AppColors.textSecondary, size: 64),
+      SizedBox(height: 16),
+      Text('No workouts yet',
           style: TextStyle(color: AppColors.textPrimary,
               fontSize: 18, fontWeight: FontWeight.bold)),
-      const SizedBox(height: 8),
-      const Text('Scan or search equipment, then save a session',
+      SizedBox(height: 8),
+      Text('Scan equipment or open an exercise and log a set',
           style: TextStyle(color: AppColors.textSecondary),
           textAlign: TextAlign.center),
     ]),
@@ -299,6 +436,87 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+  Future<void> _deleteSet(WorkoutSet s) async {
+    await DatabaseService().deleteSet(s.id!);
+    _showSnack('Set deleted', color: Colors.red.shade700);
+    _load();
+  }
+
+  Widget _setTile(WorkoutSet s) {
+    final timeLabel = () {
+      final diff = DateTime.now().difference(s.timestamp);
+      if (diff.inDays == 0) return 'Today';
+      if (diff.inDays == 1) return 'Yesterday';
+      return '${diff.inDays}d ago';
+    }();
+    return Dismissible(
+      key: Key('s-${s.id}-${s.timestamp}'),
+      direction: DismissDirection.endToStart,
+      confirmDismiss: (_) async {
+        bool confirmed = false;
+        await showDialog(
+          context: context,
+          builder: (_) => AlertDialog(
+            backgroundColor: AppColors.card,
+            title: const Text('Delete set?',
+                style: TextStyle(color: AppColors.textPrimary)),
+            content: Text('Remove ${s.exerciseName} — ${s.display}?',
+                style: const TextStyle(color: AppColors.textSecondary)),
+            actions: [
+              TextButton(onPressed: () => Navigator.pop(context),
+                  child: const Text('Cancel')),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                onPressed: () { confirmed = true; Navigator.pop(context); },
+                child: const Text('Delete'),
+              ),
+            ],
+          ),
+        );
+        return confirmed;
+      },
+      onDismissed: (_) => _deleteSet(s),
+      background: Container(
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 20),
+        decoration: BoxDecoration(
+            color: Colors.red.withValues(alpha: 0.2),
+            borderRadius: BorderRadius.circular(12)),
+        child: const Icon(Icons.delete_outline, color: Colors.red),
+      ),
+      child: GestureDetector(
+        onLongPress: () => _showEditSetSheet(s),
+        child: Container(
+          margin: const EdgeInsets.only(bottom: 8),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+          decoration: BoxDecoration(
+              color: AppColors.card, borderRadius: BorderRadius.circular(12)),
+          child: Row(children: [
+            const Icon(Icons.fitness_center, color: AppColors.primary, size: 20),
+            const SizedBox(width: 12),
+            Expanded(child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(s.exerciseName,
+                    style: const TextStyle(color: AppColors.textPrimary,
+                        fontWeight: FontWeight.w600)),
+                Text('Set ${s.setNumber} · ${s.display}',
+                    style: const TextStyle(color: AppColors.textSecondary, fontSize: 12)),
+              ],
+            )),
+            Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
+              Text('1RM ~${s.estimated1RM.toStringAsFixed(0)}kg',
+                  style: const TextStyle(color: AppColors.primary, fontSize: 12,
+                      fontWeight: FontWeight.w600)),
+              Text(timeLabel,
+                  style: const TextStyle(color: AppColors.textSecondary, fontSize: 11)),
+            ]),
+          ]),
+        ),
+      ),
+    );
+  }
+
   Widget _workoutTile(WorkoutSession s) {
     return Dismissible(
       key: Key('w-${s.id}-${s.timestamp}'),
@@ -331,7 +549,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
         decoration: BoxDecoration(
-            color: Colors.red.withOpacity(0.2),
+            color: Colors.red.withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(12)),
         child: const Icon(Icons.delete_outline, color: Colors.red),
       ),
