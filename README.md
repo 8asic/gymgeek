@@ -69,7 +69,7 @@ All checkmarks should be green.
 ### Step 1 — Clone the repository
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/gymgeek.git
+git clone https://github.com/8asic/gymgeek.git
 cd gymgeek
 ```
 
@@ -238,21 +238,6 @@ Phone (Flutter App)
 | iOS build fails | Open in Xcode, check signing team under "Signing & Capabilities" |
 | App crashes on launch | Run `flutter clean && flutter pub get && flutter run` |
 | Build number too low | Ensure `minSdkVersion` ≥ 21 in `android/app/build.gradle.kts` |
-
----
-
-## Suggested Demo Order (5–7 min)
-
-1. `0:00` Launch → Login with `demo@gymgeek.app` / `gymgeek123` (UC-01)
-2. `0:30` Scan tab → point camera at gym equipment → detection result + confidence sheet (UC-02)
-3. `1:15` Tap "View Instructions" → select video → opens YouTube (UC-03)
-4. `1:45` Tap "Save Session" → 30 min → success toast (UC-05 / sessions)
-5. `2:15` Library tab → browse exercises → tap one → log a set with weight + reps (UC-05 / sets)
-6. `3:00` Dashboard tab → unified activity list showing both sessions and sets (UC-06)
-7. `3:30` Long-press an entry to edit; swipe left to delete
-8. `4:00` Research tab → type "stretching injury prevention" → AI summary + RAG sources (UC-04)
-9. `4:45` Profile tab → select goal → personalised recommendation appears (UC-08)
-10. `5:15` Profile → GDPR section → "Delete All Data" confirmation dialog
 
 ---
 
